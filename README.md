@@ -38,6 +38,6 @@ Wisniewskibe@gmail.com
 ## Wygląd aplikacji
 Przykładowy widok jednej z zakładek aplikacji.
 
-<img src="https://github.com/TadeuszWisniewski/Prezentacja/assets/143537984/7e877ece-86bd-4a16-a03a-8d25debe413f" width="50%" height="50%"></imp>
+<img src="https://github.com/TadeuszWisniewski/Prezentacja/assets/143537984/7e877ece-86bd-4a16-a03a-8d25debe413f" width="70%" height="70%"></imp>
 
 
