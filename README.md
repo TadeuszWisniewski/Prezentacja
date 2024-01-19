@@ -26,7 +26,7 @@ jest możliwe jedynie przez użycie combo box-ów/przycisków, pod które są po
 Warto dodać, iż samo zamknięcie zakładki nie spowoduje zapisania nowego rekordu do bazy danych. Do tego celu konieczne jest kliknięcie przycisku (ToggleButton)-zapisz przedstawionego jako ikona dyskietki w 
 lewym górnym rogu przestrzeni roboczej.
 
-Do bazy danych dodałem po jednym rekordzie w każdej z potrzebnych tabeli, jeżeli jednak zajdzie potrzeba stworzenia nowych w celu sprawdzenia funkcji aplikacji zawsze można to zrobić poprzez przycisk + 
+Do bazy danych dodałem po jednym rekordzie w każdej z potrzebnych tabeli, jeżeli jednak zajdzie potrzeba stworzenia nowych w celu sprawdzenia funkcji aplikacji zawsze można to zrobić poprzez przycisk "+" 
 znajdujący sie po prawej stronie zakładki wyświetlającej wszystkie rekordy w danej tabeli.
 
 W najbliższym czasie do aplikacji zostanie dodana możliwość sortowania i filtrowania rekordów zapisanych w bazie. Zmiany będę dodawał na bieżąco.
