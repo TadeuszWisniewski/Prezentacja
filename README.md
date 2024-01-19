@@ -14,7 +14,6 @@ W trakcie pisania projektu korzystam z następujących technologi oraz wzorców:
   <li>MVVMLight</li>
   <li>LINQ</li>
   <li>Wzorzec MVVM</li>
-  <li></li>
 </ul>
 
 ## Użycie aplikacji
@@ -32,9 +31,10 @@ znajdujący sie po prawej stronie zakładki wyświetlającej wszystkie rekordy w
 
 W najbliższym czasie do aplikacji zostanie dodana możliwość sortowania i filtrowania rekordów zapisanych w bazie. Zmiany będę dodawał na bierząco.
 
-#Kontkat
+# Kontkat
 Wisniewskibe@gmail.com
-+48 790335743
+
++48 790 335 743
 
 ## Wygląd aplikacji
 Przykładowy widok jednej z zakładek aplikacji.
