@@ -33,7 +33,6 @@ W najbliższym czasie do aplikacji zostanie dodana możliwość sortowania i fil
 
 # Kontkat
 Wisniewskibe@gmail.com
-
 +48 790 335 743
 
 ## Wygląd aplikacji
