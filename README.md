@@ -22,7 +22,7 @@ Z dowolnego z tych miejsc wybieramy jeden interesujący nas element np.Towary w 
 dodać nowy towar lub odświerzyć listę towarów co jest niezbędne do wczytania nowej zawartości tabeli po dodaniu nowego elementu.
 
 Nleży pamiętać, że do zapisania nowego elementu niezbędne jest wypełnienie niemal wszystkich jego pól, przy czym wypełnienie pól pod które są podpięte klucze obce tabeli w której się obecnie znajdujemy 
-jest możliwe jedynie przez użycie combo box-ów/przycisków pod kótóre podpięte są komendy wywołujące funkcje otwierające zakładki które pokazują zawartość interesujących nas tabeli z bazy danych.
+jest możliwe jedynie przez użycie combo box-ów/przycisków pod które podpięte są komendy wywołujące funkcje otwierające zakładki które pokazują zawartość interesujących nas tabeli z bazy danych.
 Warto dodać, iż samo zamkniecie zakładki nie spowoduje zapisania nowego rekordu do bazy danych. Do tego celu konieczne jest kliknięcie przycisku (ToggleButton) zapisz zobrazowanego jako ikona dyskietki w 
 prawym górnym rogu przestrzeni roboczej.
 
