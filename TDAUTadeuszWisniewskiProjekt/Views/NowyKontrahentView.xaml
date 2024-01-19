@@ -1,0 +1,417 @@
+﻿<local:JedenViewBase x:Class="TDAUTadeuszWisniewskiProjekt.Views.NowyKontrahentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TDAUTadeuszWisniewskiProjekt.Views"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1000">
+
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="StyleZakladekDictionary1.xaml"/>
+    </UserControl.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Visible">
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="1" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Data utworzenia" />
+                    <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding DataUtworzenia, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Zmodyfikowano" />
+                    <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding DataModyfikacji, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                   
+                    <Label Grid.Row="0" Grid.Column="5" Content="Aktywny" HorizontalAlignment="Right"/>
+                    <CheckBox Grid.Row="0" Grid.Column="6" HorizontalAlignment="Left" IsChecked="{Binding Path=Aktywny,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="0" Grid.Column="0" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Łączna wartośc faktur" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding LacznaWartoscFaktur, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    
+                    <Label Content="Suma zaległych należności" Grid.Row="0" Grid.Column="2" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" IsReadOnly="True" Text="{Binding SumaZaleglychNaleznosci , UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                    <Label Content="Limit kredytu" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" MaxLength="7" Text="{Binding LimitKredytu, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+                    
+                    <Label Content="Pozostały limit" Grid.Row="1" Grid.Column="2" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" IsReadOnly="True" Text="{Binding PozostalyLimit, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                    <Label Content="BlokadaSprzedaży" Grid.Row="1" Grid.Column="4" HorizontalContentAlignment="Right"/>
+                    <CheckBox Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left"  IsChecked="{Binding BlokadaSprzedazy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </Grid>
+            </Border>
+            
+            <Expander Grid.Row="1" Grid.Column="0" IsExpanded="True" Header="Podmiot">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Podatnik VAT" Grid.Row="0" Grid.Column="0"/>
+                    <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" IsChecked="{Binding PodatnikVat, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                    <Label Content="Status" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding Status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <Button Grid.Row="1" Grid.Column="2" Content="Wybierz"  Command="{Binding ShowStatusyCommand}" />
+
+                    <Label Content="Forma prawna" Grid.Row="2" Grid.Column="0" />
+                    <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True"  Text="{Binding FormaPrawna, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <Button Grid.Row="2" Grid.Column="2" Content="Wybierz"  Command="{Binding FormaPrawnaCommand}" />
+
+                    <Label Content="Status w bazie MF" Grid.Row="3" Grid.Column="0" />
+                    <TextBox Grid.Row="3" Grid.Column="1" IsReadOnly="True" Text="{Binding StatusWBazieMF, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <Button Grid.Row="3" Grid.Column="2" Content="Wybierz"  Command="{Binding  ShowStatusyWBazieMFCommand}"/>
+
+                    <Label Content="Data aktualizacji MF" Grid.Row="4" Grid.Column="0" />
+                    <DatePicker Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
+                    SelectedDate="{Binding DataAktualizacjiMF, Mode=TwoWay}"
+                    DisplayDateStart="1/01/2000"
+                    DisplayDateEnd="{Binding Mode=OneWay, Source={x:Static System:DateTime.Today}}"
+                    />
+
+                    <Label Content="Status w bazie VIES" Grid.Row="5" Grid.Column="0"  />
+                    <TextBox Grid.Row="5" Grid.Column="1" IsReadOnly="True" Text="{Binding StatusWBazieVIES, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    <Button Grid.Row="5" Grid.Column="2" Content="Wybierz"  Command="{Binding ShowStatusyWBazieVIESCommand}"/>
+
+                    <Label Content="Data aktualizacji VIES" Grid.Row="6" Grid.Column="0" />
+                    <DatePicker Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
+                    SelectedDate="{Binding DataAktualizacjiVIES, Mode=TwoWay}"
+                    DisplayDateStart="1/01/2000"
+                    DisplayDateEnd="{Binding Mode=OneWay, Source={x:Static System:DateTime.Today}}"
+                    />
+                </Grid>
+            </Expander>
+            
+            <Expander Grid.Row="1" Grid.Column="1" IsExpanded="True" Header="Dane identyfikacyjne">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Kod" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" MaxLength="10" IsReadOnly="True" Text="{Binding Kod, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                    <Label Content="Nazwa" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" MaxLength="15"  Text="{Binding Nazwa, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+
+                    <Label Content="EU VAT/NIP" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" MaxLength="10" Text="{Binding Nip,UpdateSourceTrigger=LostFocus, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+
+                    <Label Grid.Row="3" Grid.Column="0" Content="PESEL"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" MaxLength="11" Text="{Binding Pesel, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+
+                    <Label Grid.Row="4" Grid.Column="0" Content="REGON"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" MaxLength="9" Text="{Binding Regon, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+
+                    <Label Grid.Row="5" Grid.Column="0" Content="KRS"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" MaxLength="11" Text="{Binding Krs, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+
+                    <Label Grid.Row="6" Grid.Column="0" Content="GLN/ILN"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" MaxLength="13" Text="{Binding GlnIln, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+
+                    <Label Grid.Row="6" Grid.Column="2" Content="Strona WWW" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding StronaWww, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"/>
+
+                </Grid>
+            </Expander>
+            
+            <Expander Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="Adres" IsExpanded="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Header="Adres zameldowania" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="Wybierz adres zameldowania" />
+                            <Button Grid.Row="0" Grid.Column="1" Content="Wybierz" Command="{Binding AdresZameldowaniaCommand}"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Content="Kraj" />
+                            <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresZameldowaniaNazwaKraju, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" Content="Województwo" />
+                            <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresZameldowaniaNazwaWojewodztwa, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="3" Grid.Column="0" Content="Powiat" />
+                            <TextBox Grid.Row="3" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresZameldowaniaNazwaPowiatu, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="4" Grid.Column="0" Content="Miejscowość"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresZameldowaniaNazwaMiejscowosci, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="0" Grid.Column="2" Content="Kod gminy" HorizontalContentAlignment="Right" />
+                            <TextBox Grid.Row="0" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresZameldowaniaKodGminy, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+
+                            <Label Grid.Row="1" Grid.Column="2" HorizontalContentAlignment="Right" Content="Ulica"/>
+                            <TextBox Grid.Row="1" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresZameldowaniaUlica, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="2" Grid.Column="2" Content="Nr domu" HorizontalContentAlignment="Right"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresZameldowaniaNumerDomu, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+
+                            <Label Grid.Row="3" Grid.Column="2" Content="Nr lokalu:" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="3" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresZameldowaniaNumerLokalu, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="4" Grid.Column="2" Content="Kod pocztowy: " HorizontalContentAlignment="Right"/>
+                            <TextBox Grid.Row="4" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresZameldowaniaKodPocztowy, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+
+                            <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Content="Telefon:"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresZameldowaniaTelefon, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0" Content="Telefon SMS:"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresZameldowaniaTelefonSms, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                                    <Label Grid.Row="2" Grid.Column="0" Content="E-Mail:"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresZameldowaniaEmail, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Adres do korespondencji" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" IsEnabled="{Binding AdresDoKorespondencjiInnyNizAdresZameldowania, UpdateSourceTrigger=PropertyChanged}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="Wybierz adres zameldowania" />
+                            <Button Grid.Row="0" Grid.Column="1" Content="Wybierz" Command="{Binding AdresDoKorespondencjiCommand}"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Content="Kraj" />
+                            <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiNazwaKraju, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" Content="Województwo" />
+                            <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiNazwaWojewodztwa, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="3" Grid.Column="0" Content="Powiat" />
+                            <TextBox Grid.Row="3" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiNazwaPowiatu, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+
+                            <Label Grid.Row="4" Grid.Column="0" Content="Miejscowość"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiNazwaMiejscowosci, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="0" Grid.Column="2" Content="Kod gminy" HorizontalContentAlignment="Right"/>
+                            <TextBox Grid.Row="0" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiKodGminy, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+
+                            <Label Grid.Row="1" Grid.Column="2" HorizontalContentAlignment="Right" Content="Ulica"/>
+                            <TextBox Grid.Row="1" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiUlica, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="2" Grid.Column="2" Content="Nr domu" HorizontalContentAlignment="Right"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiNumerDomu, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="3" Grid.Column="2" Content="Nr lokalu:" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="3" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiNumerLokalu, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                            <Label Grid.Row="4" Grid.Column="2" Content="Kod pocztowy: " HorizontalContentAlignment="Right"/>
+                            <TextBox Grid.Row="4" Grid.Column="3" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiKodPocztowy, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+
+                            <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Content="Telefon:"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiTelefon, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0" Content="Telefon SMS:"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiTelefonSms, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                                    <Label Grid.Row="2" Grid.Column="0" Content="E-Mail:"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Text="{Binding AdresDoKorespondencjiEmail, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </GroupBox>
+
+                    <Label Content="Adres do korespondencji inny niż adres zameldowania" Grid.Row="1" Grid.Column="0" />
+                    <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" IsChecked="{Binding AdresDoKorespondencjiInnyNizAdresZameldowania, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+                </Grid>
+            </Expander>
+            
+            <Expander Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"  IsExpanded="True" Header="Warunki handlowe">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Label Grid.Row="0" Grid.Column="0" Content="Definicja płatności"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding DefinicjaPlatnosciNazwa, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    <Button Grid.Row="0" Grid.Column="2" Content="Wybierz"  Command="{Binding DefinicjaPlatnosciCommand}"/>
+                    
+                    <Label Grid.Row="0" Grid.Column="3" Content="Termin domyślny(dni)"  HorizontalContentAlignment="Right" Visibility="Hidden"/>
+                    <TextBox Grid.Row="0" Grid.Column="4" MaxLength="3" Text="{Binding TerminDomyslny, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox" Visibility="Hidden"/>
+
+                    <Label Grid.Row="0" Grid.Column="5" Content="Waluta domyślna" HorizontalContentAlignment="Right"/>
+                    <ComboBox Grid.Row="0" Grid.Column="6"  
+                        ItemsSource="{Binding WalutaComboBoxItems}"
+                        DisplayMemberPath="Nazwa"
+                        SelectedValuePath="Id"
+                        SelectedValue="{Binding Path=IdWaluta, Mode=TwoWay}"
+                    />
+                </Grid>
+            </Expander>
+            <!--ostatni-->
+            <GroupBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Header="Opis*">
+                <TextBox MaxLength="48" Text="{Binding Opis, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </GroupBox>
+
+        </Grid>
+    </ScrollViewer>
+
+
+</local:JedenViewBase>

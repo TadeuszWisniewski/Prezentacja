@@ -1,0 +1,190 @@
+﻿<local:JedenViewBase x:Class="TDAUTadeuszWisniewskiProjekt.Views.NowaFakturaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TDAUTadeuszWisniewskiProjekt.Views"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="2000">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="StyleZakladekDictionary1.xaml"/>
+    </UserControl.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Visible">
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Data utworzenia"  />
+                    <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True"  Text="{Binding DataUtworzenia, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Zmodyfikowano"  />
+                    <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True"  HorizontalAlignment="Stretch" Text="{Binding DataModyfikacji, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                    <Label Grid.Row="0" Grid.Column="5" Content="Aktywny" HorizontalContentAlignment="Right"/>
+                    <CheckBox Grid.Row="0" Grid.Column="6" IsChecked="{Binding Path=Aktywny, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </Grid>
+            </Border>
+            
+            <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="Ogólne">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Label Content="Dokument numer" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" MaxLength="15" Text="{Binding Numer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+
+                    <Label  Content="Dostawa" Grid.Row="1" Grid.Column="0" />
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Row="0" Grid.Column="0" Content="Tak" IsChecked="{Binding Path=Dostawa, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <Label Grid.Column="1" IsEnabled="{Binding Path=Dostawa, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Content="Koszt" HorizontalAlignment="Right" />
+                        <TextBox Grid.Column="2" MaxLength="6" IsEnabled="{Binding Path=Dostawa, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Text="{Binding KosztDostawy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+                    </Grid>
+
+                    <Label  Content="Kontrahent" Grid.Row="2" Grid.Column="0" />
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Wybierz" Command="{Binding ShowKontrahenciCommand}"/>
+                        <TextBox Grid.Column="1" IsReadOnly="True" Text="{Binding KontrahentNazwa, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Header="Pozycje">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="0" Content="Wybór towaru" Command="{Binding ShowTowaryCommand}"/>
+                    <TextBox Grid.Row="0" Grid.Column="1"  IsReadOnly="True" Text="{Binding NazwaTowar, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                    <TextBox Grid.Row="0" Grid.Column="2"  IsReadOnly="True" Text="{Binding CenaTowar, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Podaj ilość" HorizontalContentAlignment="Center" />
+                    <TextBox Grid.Row="1" Grid.Column="1"  MaxLength="3" Text="{Binding Ilosc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+
+                    <Button Grid.Row="2" Grid.Column="0" Content="Dodaj" Command="{Binding DodajCommand}" />
+                    <Button Grid.Row="2" Grid.Column="1" Content="Wyczyść" Command="{Binding ClearCommand}" />
+
+                    <ScrollViewer Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" MaxHeight="80">
+                        <DataGrid   ItemsSource="{Binding ListaPozycjiFaktury, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" AutoGenerateColumns="True">
+
+                        </DataGrid>
+                    </ScrollViewer>
+
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Header="Podsumowanie">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Cena początkowa" />
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Oblicz" Command="{Binding ObliczCenePoczatkowaCommand}"/>
+                        <TextBox Grid.Column="1" IsReadOnly="True" Text="{Binding Path=Wartosc, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </Grid>
+
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Rabat ceny" />
+                    <TextBox Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=CzyRabatAktywny, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" MaxLength=" 6"  Text="{Binding RabatCeny, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Cena końcowa"  />
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Oblicz" Command="{Binding ObliczCeneKoncowaCommand}"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Text="{Binding CenaPoRabacie, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                    </Grid>
+                    
+
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Header="Opis*">
+                <TextBox MaxLength="48" Text="{Binding Opis, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </GroupBox>
+
+        </Grid>
+    </ScrollViewer>
+
+</local:JedenViewBase>

@@ -1,0 +1,283 @@
+﻿<local:JedenViewBase x:Class="TDAUTadeuszWisniewskiProjekt.Views.NowyTowarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TDAUTadeuszWisniewskiProjekt.Views" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+                     mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="2000">
+    <UserControl.Resources>
+        <ResourceDictionary Source="StyleZakladekDictionary1.xaml"/>
+    </UserControl.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Visible">
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Data utworzenia"  />
+                    <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding DataUtworzenia, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Zmodyfikowano"  />
+                    <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding DataModyfikacji, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+
+                    <Label Grid.Row="0" Grid.Column="5" Content="Aktywny" HorizontalContentAlignment="Right" MinWidth="100" />
+                    <CheckBox Grid.Row="0" Grid.Column="6" IsChecked="{Binding Path=Aktywny, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </Grid>
+            </Border>
+        
+            <GroupBox Grid.Row="1" Grid.Column="0"  Header="Ogólne">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Typ" Grid.Row="0" Grid.Column="0"/>
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Row="0" Grid.Column="0" IsReadOnly="True" Text="{Binding NazwaTyp, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Button Grid.Row="0" Grid.Column="1" Content="Wybierz"  Command="{Binding ShowTypyCommand}" />
+                    </Grid>
+                    
+
+                    <Label Content="Nazwa" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Nazwa, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    
+                    <Label Content="Kod kreskowy" Grid.Row="2" Grid.Column="0" />
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Column="0"
+                            ItemsSource="{Binding EANComboBoxItems}"
+                            DisplayMemberPath="IloscCyfr"
+                            SelectedValuePath="Id"
+                            SelectedValue="{Binding Path=IdEAN, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            />
+                        <TextBox Grid.Column="1" IsEnabled="{Binding EdycjaKoduKreskowego, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  MaxLength="{Binding EANIloscCyfr, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Text="{Binding KodKreskowy, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+                    </Grid>
+
+                    <Label Grid.Row="3" Grid.Column="0"  Content="Opakowanie/Kaucja"/>
+                    <Grid Grid.Row="3" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Column="0" Content="Tak" IsChecked="{Binding Path=Opakowanie,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <Label Grid.Column="1" IsEnabled="{Binding Opakowanie, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Koszt" HorizontalContentAlignment="Right"/>
+                        <TextBox Grid.Column="2" IsEnabled="{Binding Opakowanie, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Text="{Binding KosztOpakowania, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+                    </Grid>
+
+                    <Label Content="Numer katalogowy" Grid.Row="4" Grid.Column="0"  />
+                    <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding NumerKatalogowy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+
+                    <Label Content="Rodzaj VAT dla sprzedaży" Grid.Row="5" Grid.Column="0" />
+                    <Grid Grid.Row="5" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" IsReadOnly="True"  Text="{Binding RodzajVatSprzedazy, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Button Grid.Column="1" Content="Wybierz"  Command="{Binding ShowRodzajVatCommand}" HorizontalContentAlignment="Left"/>
+                    </Grid>
+
+                    <Label Content="Rodzaj VAT dla zakupu" Grid.Row="6" Grid.Column="0" />
+                    <Grid Grid.Row="6" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" IsReadOnly="True"  Text="{Binding RodzajVatZakupu, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Button Grid.Column="1" Content="Wybierz"  Command="{Binding ShowRodzajVatZakupuCommand}" HorizontalContentAlignment="Left"/>
+                    </Grid>
+                    
+                    <Label Content="Jednostka" Grid.Row="7" Grid.Column="0" />
+                    <Grid Grid.Row="7" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" IsReadOnly="True"  Text="{Binding NazwaJednostka, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Button Grid.Column="1" Content="Wybierz"  Command="{Binding ShowJednostkaCommand}" HorizontalContentAlignment="Left"/>
+                    </Grid>
+
+                    <Label Content="PKWiU" Grid.Row="8" Grid.Column="0"/>
+                    <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding PKWiU, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    
+                    <Label Content="Podst. zastosowania stawki VAT*" Grid.Row="9" Grid.Column="0" />
+                    <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding PodstawaZastosowaniaStawkiVat, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" Grid.Column="1"  Header="Dodatkowe">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Kod CPV" />
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Wybierz" Command="{Binding ShowCPVCommand}"/>
+                        <TextBox Grid.Column="1" IsReadOnly="True" Text="{Binding CPVKod, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </Grid>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Cena regularna" />
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Wybierz" Command="{Binding ShowCenyCommand}"/>
+                        <TextBox Grid.Column="1" IsReadOnly="True" Text="{Binding WartoscCenaRegularna, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </Grid>
+
+                    <Label Content="Do wyprzedaży" Grid.Row="2" Grid.Column="0"/>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Column="0" Content="Tak" IsChecked="{Binding Path=DoWyprzedazy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <Label Content="Cena wyprzedaży" Grid.Column="1" IsEnabled="{Binding DoWyprzedazy, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Button Grid.Column="2" Content="Wybierz" IsEnabled="{Binding DoWyprzedazy, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Command="{Binding ShowCenyWyprzedazyCommand}"/>
+                        <TextBox Grid.Column="3" IsReadOnly="True" IsEnabled="{Binding Path=DoWyprzedazy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Text="{Binding WartoscCenaWyprzedazy}"/>
+                    </Grid>
+
+                    <Label Content="Blokada sprzedaży" Grid.Row="3" Grid.Column="0" />
+                    <Grid Grid.Row="3" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Column="0" Content="Tak" IsChecked="{Binding Path=BlokadaSprzedazy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <Label Content="Powód" Grid.Column="1" IsEnabled="{Binding BlokadaSprzedazy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="2" IsEnabled="{Binding BlokadaSprzedazy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Text="{Binding PowodBlokady, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </Grid>
+
+                    <Label Grid.Row="4" Grid.Column="0" Content="Usługa podnosząca wartość magazynową"/>
+                    <Grid Grid.Row="4" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Column="0" Content="Tak" IsChecked="{Binding Path=UslugaPodnoszacaWartoscMagazynowa, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <Label Content="Wartośc" Grid.Column="1" IsEnabled="{Binding UslugaPodnoszacaWartoscMagazynowa, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="2" IsEnabled="{Binding UslugaPodnoszacaWartoscMagazynowa, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Text="{Binding WartoscUslugaPodnoszacaWartoscMagazynowa}" PreviewTextInput="NumberValidationTextBox"/>
+                    </Grid>
+
+                    <Label Grid.Row="5" Grid.Column="0" Content="Dolicz koszt dodatkowy"/>
+                    <Grid Grid.Row="5" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Column="0" Content="Tak" IsChecked="{Binding Path=KosztDodatkowy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="1" IsEnabled="{Binding KosztDodatkowy, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Text="{Binding WartoscKosztDodatkowy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+                    </Grid>
+
+                    <Label Content="Cena końcowa" Grid.Row="6" Grid.Column="0"  />
+                    <Grid Grid.Row="6" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Oblicz" Command="{Binding Path=ObliczCeneKoncowaCommand}" />
+                        <TextBox Grid.Column="1" IsReadOnly="True" Text="{Binding CenaKoncowa, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+            
+            <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Opis*">
+                <TextBox Text="{Binding Opis, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </GroupBox>
+        </Grid>
+    </ScrollViewer>
+</local:JedenViewBase>

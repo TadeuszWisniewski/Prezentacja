@@ -1,0 +1,354 @@
+﻿<Window x:Class="TDAUTadeuszWisniewskiProjekt.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TDAUTadeuszWisniewskiProjekt"
+        xmlns:ViewModels="clr-namespace:TDAUTadeuszWisniewskiProjekt.ViewModels"
+        mc:Ignorable="d"
+        Title="Magazyn" Height="450" Width="1000" WindowState="Maximized">
+
+
+    <Window.Resources>
+        <ResourceDictionary Source="MainWindowResources.xaml" />
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="A" Modifiers="Ctrl" Command="{Binding TowarCommand}"/>
+        <KeyBinding Key="B" Modifiers="Ctrl" Command="{Binding TowaryCommand}"/>
+        <!--Chwilowo brak implementacji poniższego-->
+        <!--<KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding PracownikCommand}"/>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding PracownicyCommand}"/>-->
+        <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding FakturaCommand}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding FakturyCommand}"/>
+        <KeyBinding Key="G" Modifiers="Ctrl" Command="{Binding KontrahentCommand}"/>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0" Margin="3">
+            
+            <!--W tym momencie brak zastosowania-->
+            <!--<MenuItem Header="_Plik">
+                <MenuItem Header="Zamknij" >
+                    dodac ikone i input gesture
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/close.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>-->
+            
+            <MenuItem Header="_Magazyn">
+                <MenuItem Header="_Towary" >
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content/Icons/warehouse.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header="Pokaż wszystkie towary " Command="{Binding TowaryCommand}" InputGestureText="Ctrl+B" >
+                        <MenuItem.Icon>
+                            <Image Width="20" Height="20" Source="Content/Icons/warehouse.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Dodaj nowy towar" Command="{Binding TowarCommand}" InputGestureText="Ctrl+A">
+                        <MenuItem.Icon>
+                            <Image Width="20" Height="20" Source="Content/Icons/add.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
+            
+            <MenuItem Header="_Ksiegowosc">
+                <MenuItem Header="_Faktury">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content/Icons/invoice.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header="Pokaz wszystkie faktury" Command="{Binding FakturyCommand}" InputGestureText="Ctrl+F">
+                        <MenuItem.Icon>
+                            <Image Width="20" Height="20" Source="Content/Icons/invoices.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Dodaj nową fakturę" Command="{Binding FakturaCommand}" InputGestureText="Ctrl+E">
+                        <MenuItem.Icon>
+                            <Image Width="20" Height="20" Source="Content/Icons/invoice.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                
+                <MenuItem Header="Kontrahent" Command="{Binding KontrahentCommand}" InputGestureText="Ctrl+G">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content/Icons/business.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Waluta" Command="{Binding WalutaCommand}"/>
+                <MenuItem Header="Waluty" Command="{Binding WalutyCommand}"/>
+                <MenuItem Header="EAN typ" Command="{Binding EANTypCommand}"/>
+                <MenuItem Header="EAN typy" Command="{Binding EANTypyCommand}"/>
+            </MenuItem>
+            
+            <!--Komentarz poniższego bloku z powodu braku implementacji racownika, reszta jest uzywana do szybkiego dostępu do zakładek w celu np testu-->
+            <!--<MenuItem Header="_Kadry">
+                <MenuItem Header="Pracownik" Command="{Binding PracownikCommand}" InputGestureText="Ctrl+C">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/person.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Wszyscy pracownicy" Command="{Binding PracownicyCommand}" InputGestureText="Ctrl+D">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/group.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Wymiar etatu" Command="{Binding WymiarEtatuCommand}"/>
+                <MenuItem Header="Wymiary etatu" Command="{Binding WymiaryEtatuCommand}"/>
+                <MenuItem Header="Województwo" Command="{Binding WojewodztwoCommand}"/>
+                <MenuItem Header="Województwa" Command="{Binding WojewodztwaCommand}"/>
+                <MenuItem Header="Waluta" Command="{Binding WalutaCommand}"/>
+                <MenuItem Header="Waluty" Command="{Binding WalutyCommand}"/>
+                <MenuItem Header="Typ umowy o pracę" Command="{Binding TypUmowyOPraceCommand}"/>
+                <MenuItem Header="Typy umów o pracę" Command="{Binding TypyUmowOPraceCommand}"/>
+                <MenuItem Header="Typ stawki" Command="{Binding TypStawkiCommand}"/>
+                <MenuItem Header="Typy stawek" Command="{Binding TypyStawkiCommand}"/>
+                <MenuItem Header="Typ NIP" Command="{Binding TypNIPCommand}"/>
+                <MenuItem Header="Typy NIP" Command="{Binding TypyNIPCommand}"/>
+                <MenuItem Header="Typ" Command="{Binding TypCommand}"/>
+                <MenuItem Header="Typy" Command="{Binding TypyCommand}"/>
+                <MenuItem Header="Status w bazie" Command="{Binding StatusWBazieCommand}"/>
+                <MenuItem Header="Statusy w bazie" Command="{Binding StatusyWBazieCommand}"/>
+                <MenuItem Header="Status" Command="{Binding StatusCommand}"/>
+                <MenuItem Header="Statusy" Command="{Binding StatusyCommand}"/>
+                <MenuItem Header="Stanowisko" Command="{Binding StanowiskoCommand}"/>
+                <MenuItem Header="Stanowiska" Command="{Binding StanowiskaCommand}"/>
+                <MenuItem Header="Rodzaj VAT" Command="{Binding RodzajVATCommand}"/>
+                <MenuItem Header="Rodzaje VAT" Command="{Binding RodzajeVATCommand}"/>
+                <MenuItem Header="Precyzja ceny" Command="{Binding PrecyzjaCenyCommand}"/>
+                <MenuItem Header="Precyzje ceny" Command="{Binding PrecyzjeCenyCommand}"/>
+
+                <MenuItem Header="Podstawa zatrudnienia" Command="{Binding PodstawaZatrudnieniaCommand}"/>
+                <MenuItem Header="Podstawy zatrudnienia" Command="{Binding PodstawyZatrudnieniaCommand}"/>
+                <MenuItem Header="Miejscowość" Command="{Binding MiejscowoscCommand}"/>
+                <MenuItem Header="Miejscowości" Command="{Binding MiejscowosciCommand}"/>
+
+                <MenuItem Header="Kraj" Command="{Binding KrajCommand}"/>
+                <MenuItem Header="Kraje" Command="{Binding KrajeCommand}"/>
+                <MenuItem Header="Kod CPV" Command="{Binding KodCPVCommand}"/>
+                <MenuItem Header="Kody CPV" Command="{Binding KodyCPVCommand}"/>
+
+                <MenuItem Header="Jednostka organizacyjna" Command="{Binding JednostkaOrganizacyjnaCommand}"/>
+                <MenuItem Header="Jednostki organizacyjne" Command="{Binding JednostkiOrganizacyjneCommand}"/>
+
+                <MenuItem Header="Jednostka" Command="{Binding JednostkaCommand}"/>
+                <MenuItem Header="Jednostki" Command="{Binding JednostkiCommand}"/>
+                <MenuItem Header="Forma prawna" Command="{Binding FormaPrawnaCommand}"/>
+                <MenuItem Header="Formy prawne" Command="{Binding FormyPrawneCommand}"/>
+
+                <MenuItem Header="EAN typ" Command="{Binding EANTypCommand}"/>
+                <MenuItem Header="EAN typy" Command="{Binding EANTypyCommand}"/>
+
+                <MenuItem Header="Definicja płatnści" Command="{Binding DefinicjaPlatnosciCommand}"/>
+                <MenuItem Header="Definicje płatności" Command="{Binding DefinicjePlatnosciCommand}"/>
+
+                <MenuItem Header="Cena" Command="{Binding CenaCommand}"/>
+                <MenuItem Header="Ceny" Command="{Binding CenyCommand}"/>
+                <MenuItem Header="Aktualizacja ceny" Command="{Binding AktualizacjaCenyCommand}"/>
+                <MenuItem Header="Aktualizacja cen" Command="{Binding AktualizacjeCenyCommand}"/>
+
+                <MenuItem Header="Adres do korespondencji" Command="{Binding AdresDoKorespondencjiCommand}"/>
+                <MenuItem Header="Adresy do korespondencji" Command="{Binding AdresyDoKorespondencjiCommand}"/>
+                <MenuItem Header="Adres zameldowania" Command="{Binding AdresZameldowaniaCommand}" />
+                <MenuItem Header="Adresy zameldowania" Command="{Binding AdresyZameldowaniaCommand}" />
+                <MenuItem Header="Miejsce urodzenia" Command="{Binding MiejsceUrodzeniaCommand}" />
+                <MenuItem Header="Miejsca urodzenia" Command="{Binding MiejscaUrodzeniaCommand}" />
+                <MenuItem Header="Pozycja faktury" Command="{Binding PozycjaFakturyCommand}" />
+                <MenuItem Header="Pozycje faktury" Command="{Binding PozycjeFakturyCommand}" />
+            </MenuItem>-->
+            <!--<MenuItem Header="_Informacje">
+                <MenuItem Header="Obsługa klienta">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/support.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header="Chat online">
+                        <MenuItem.Icon>
+                            <Image Width="20" Height="20" Source="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/chat.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Telefon">
+                        <MenuItem.Icon>
+                            <Image Width="20" Height="20" Source="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/phone.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Zgłoś problem" >
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/warning.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>-->
+        </Menu>
+
+
+
+        <ToolBar Grid.Row="1" Grid.Column="0" >
+            
+            <!--<ToggleButton Width="32" Height="32" Margin="2"  >
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/save.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <Separator/>-->
+
+            <ToggleButton Width="32" Height="32"  Margin="2" Command="{Binding TowarCommand}" >
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content/Icons/add.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <ToggleButton Width="32" Height="32" Margin="2" Command="{Binding TowaryCommand}" >
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content/Icons/warehouse.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <Separator/>
+            
+            <!--Komentarz do momentu implementacji pracownika-->
+            <!--<ToggleButton Width="32" Height="32" Margin="2" Command="{Binding PracownikCommand}" >
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/person.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <ToggleButton Width="32" Height="32" Margin="2" Command="{Binding PracownicyCommand}" >
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="C:\Users\wisni\source\repos\TDAUTadeuszWisniewskiProjekt/Views/Content/Icons/group.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <Separator/>-->
+            
+            <ToggleButton Width="32" Height="32" Margin="2" Command="{Binding FakturaCommand}" >
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content/Icons/invoice.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <ToggleButton Width="32" Height="32" Margin="2" Command="{Binding FakturyCommand}" >
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content/Icons/invoices.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <Separator/>
+            
+            <ToggleButton Width="32" Height="32" Margin="2" Command="{Binding KontrahentCommand}">
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content/Icons/business.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <Separator/>
+            
+            <!--Animacja strzałki-->
+            <ToggleButton Width="32" Height="32"  Margin="2" >
+                <!--Dodanie ikony-->
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="Content/Icons/back.png"/>
+                </ToggleButton.Background>
+                <!--Do animacji!-->
+                <ToggleButton.Triggers>
+                    <EventTrigger RoutedEvent="ToggleButton.Checked">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                 Storyboard.TargetName="SideBar"
+                                 Storyboard.TargetProperty="Width"
+                                 From="150"
+                                 To="0"
+                                 Duration="0:0:0.3"
+                                 />
+                                <!--zmiana ikony toggleButtona-->
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" >
+                                    <DiscreteObjectKeyFrame
+                                     KeyTime="0:0:0" >
+                                        <DiscreteObjectKeyFrame.Value>
+                                            <ImageBrush 
+                                             ImageSource="Content/Icons/forward.png" />
+                                        </DiscreteObjectKeyFrame.Value>
+                                    </DiscreteObjectKeyFrame>
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                 Storyboard.TargetName="SideBar"
+                                 Storyboard.TargetProperty="Width"
+                                 From="0"
+                                 To="150"
+                                 Duration="0:0:0.3"
+                                 />
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" >
+                                    <DiscreteObjectKeyFrame
+                                     KeyTime="0:0:0">
+                                        <DiscreteObjectKeyFrame.Value>
+                                            <ImageBrush 
+                                             ImageSource="Content/Icons/back.png" />
+                                        </DiscreteObjectKeyFrame.Value>
+                                    </DiscreteObjectKeyFrame>
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ToggleButton.Triggers>
+            </ToggleButton>
+        </ToolBar>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Column="0" Width="150" x:Name="SideBar">
+                <HeaderedContentControl
+                 Width="150"
+                 Header="Operacje"              
+                 Content="{Binding Commands}"
+                 ContentTemplate="{StaticResource CommandsTemplate}"
+                 Style="{StaticResource MainHCCStyle}"
+                 />
+            </Border>
+            
+            <Border Grid.Column="1">
+                <HeaderedContentControl
+                 Header="Przestrzeń robocza"
+                 Content="{Binding Workspaces}"
+                 ContentTemplate="{StaticResource WorkspacesTemplate}"
+                 Style="{StaticResource MainHCCStyle}"
+                />
+            </Border>
+        </Grid>
+
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock><Run Text="Tadeusz Wiśniewski"/></TextBlock>
+            </StatusBarItem>
+            <StackPanel  Orientation="Horizontal" >
+                <StatusBarItem >
+                    <Image Source="Content/Icons/email.png"/>
+                </StatusBarItem>
+                <StatusBarItem >
+                    <Image Source="Content/Icons/phone.png"/>
+                </StatusBarItem>
+                <StatusBarItem >
+                    <Image Source="Content/Icons/chat.png"/>
+                </StatusBarItem>
+            </StackPanel>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock><Run Text="WSB-NLU"/></TextBlock>
+            </StatusBarItem>
+
+        </StatusBar>
+
+    </Grid>
+
+
+</Window>

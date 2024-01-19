@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\NowaCenaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowaDefinicjaPlatnosciView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowaFakturaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowaFormaPrawnaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowaJednostkaOrganizacyjnaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowaJednostkaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowaMiejscowoscView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowaPodstawaZatrudnieniaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowaPozycjaFakturyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowaWalutaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NoweMiejsceUrodzeniaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NoweStanowiskoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NoweWojewodztwoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyAdresZameldowaniaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyEANTypView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyKodCPVView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyKontrahentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyKrajView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyPracownikView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyRodzajVATView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyStatusView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyStatusWBazieView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyTowarView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyTypNIPView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyTypStawkiView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyTypUmowyOPraceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyTypView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NowyWymiarEtatuView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszyscyKontrahenciView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszyscyPracownicyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieAdresyDoKorespondencjiView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieAdresyZameldowaniaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieCenyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieCenyWyprzedazyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieDefinicjePlatnosciView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieEANTypyWiev.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieFakturyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieFormyPrawneView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieJednostkiOrganizacyjneView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieJednostkiView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieKodyCPVView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieKrajeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieMiejscaUrodzeniaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieMiejscowosciView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkiePodstawyZatrudnieniaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieRodzajeVATView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieRodzajeVATZakupuView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieStanowiskaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieStatusyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieStatusyWBazieVIESView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieStatusyWBazieView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieTowaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieTypyNIPView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieTypyStawkiView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieTypyUmowyOPraceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieTypyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieWalutyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieWojewodztwaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WszystkieWymiaryEtatuView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainWindowResources.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaCenaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaDefinicjaPlatnosciView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaFakturaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaFormaPrawnaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaJednostkaOrganizacyjnaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaJednostkaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaMiejscowoscView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaPodstawaZatrudnieniaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaPozycjaFakturyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowaWalutaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NoweMiejsceUrodzeniaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NoweStanowiskoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NoweWojewodztwoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyAdresZameldowaniaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyEANTypView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyKodCPVView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyKontrahentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyKrajView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyPracownikView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyRodzajVATView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyStatusView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyStatusWBazieView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyTowarView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyTypNIPView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyTypStawkiView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyTypUmowyOPraceView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyTypView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NowyWymiarEtatuView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StyleZakladekDictionary1.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszyscyKontrahenciView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszyscyPracownicyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieAdresyDoKorespondencjiView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieAdresyZameldowaniaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieCenyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieCenyWyprzedazyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieDefinicjePlatnosciView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieEANTypyWiev.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieFakturyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieFormyPrawneView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieJednostkiOrganizacyjneView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieJednostkiView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieKodyCPVView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieKrajeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieMiejscaUrodzeniaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieMiejscowosciView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkiePodstawyZatrudnieniaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieRodzajeVATView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieRodzajeVATZakupuView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieStanowiskaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieStatusyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieStatusyWBazieVIESView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieStatusyWBazieView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieTowaryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieTypyNIPView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieTypyStawkiView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieTypyUmowyOPraceView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieTypyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieWalutyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieWojewodztwaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WszystkieWymiaryEtatuView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

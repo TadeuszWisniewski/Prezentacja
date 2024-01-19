@@ -1,0 +1,34 @@
+﻿<local:WszystkieViewBase x:Class="TDAUTadeuszWisniewskiProjekt.Views.WszystkieAdresyZameldowaniaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TDAUTadeuszWisniewskiProjekt.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="StyleZakladekDictionary1.xaml"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}" SelectedItem="{Binding Path=WybranyAdresZameldowania, Mode=TwoWay}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nazwa kraju" Binding="{Binding NazwaKraju}" MinWidth="100"/>
+                <DataGridTextColumn Header="Nazwa wojewodztwa" Binding="{Binding NazwaWojewodztwa}" MinWidth="100"/>
+                <DataGridTextColumn Header="Powiat" Binding="{Binding NazwaPowiatu}" MinWidth="100"/>
+                <DataGridTextColumn Header="Kod gminy" Binding="{Binding KodGminy}" MinWidth="100"/>
+                <DataGridTextColumn Header="Nazwa miejscowosci" Binding="{Binding NazwaMiejscowosci}" MinWidth="100"/>
+                <DataGridTextColumn Header="Ulica" Binding="{Binding Ulica}" MinWidth="100"/>
+                <DataGridTextColumn Header="Numer domu" Binding="{Binding NumerDomu}" MinWidth="100"/>
+                <DataGridTextColumn Header="Numer lokalu" Binding="{Binding NumerLokalu}" MinWidth="100"/>
+                <DataGridTextColumn Header="Telefon" Binding="{Binding Telefon}" MinWidth="100"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" MinWidth="100"/>
+                <DataGridTextColumn Header="Telefon SMS" Binding="{Binding TelefonSMS}" MinWidth="100"/>
+                <DataGridTextColumn Header="Opis" Binding="{Binding Opis}" MinWidth="100"/>
+                <DataGridTextColumn Header="Aktywność" Binding="{Binding Aktywny}" MinWidth="100"/>
+                <DataGridTextColumn Header="Data utworzenia" Binding="{Binding KiedyUtworzone}" MinWidth="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</local:WszystkieViewBase>

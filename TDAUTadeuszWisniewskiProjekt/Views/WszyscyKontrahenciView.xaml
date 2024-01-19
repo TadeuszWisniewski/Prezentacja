@@ -1,0 +1,34 @@
+﻿<local:WszystkieViewBase x:Class="TDAUTadeuszWisniewskiProjekt.Views.WszyscyKontrahenciView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TDAUTadeuszWisniewskiProjekt.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="StyleZakladekDictionary1.xaml"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}" SelectedItem="{Binding Path=WybranyK, Mode=TwoWay}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nazwa" Binding="{Binding Bazwa}" MinWidth="100"/>
+                <DataGridTextColumn Header="Kod" Binding="{Binding Kod}" MinWidth="100"/>
+                <DataGridTextColumn Header="NIP" Binding="{Binding Nip}" MinWidth="100"/>
+                <DataGridTextColumn Header="Podatnik VAT" Binding="{Binding PodatnikVat}" MinWidth="100"/>
+                <DataGridTextColumn Header="Blokada sprzedazy" Binding="{Binding BlokadaSprzedazy}" MinWidth="100"/>
+                <DataGridTextColumn Header="Limit kredytu" Binding="{Binding LimitKredytu}" MinWidth="100"/>
+                <DataGridTextColumn Header="Waluta domyślna" Binding="{Binding WalutaNazwa}" MinWidth="100"/>
+                <DataGridTextColumn Header="KRS" Binding="{Binding Krs}" MinWidth="100"/>
+                <DataGridTextColumn Header="FormaPrawna" Binding="{Binding FormaPrawnaNazwa}" MinWidth="100"/>
+                <DataGridTextColumn Header="Strona WWW" Binding="{Binding StronaWww}" MinWidth="100"/>
+                <DataGridTextColumn Header="REGON" Binding="{Binding Regon}" MinWidth="100"/>
+                <DataGridTextColumn Header="Opis" Binding="{Binding Opis}" MinWidth="100"/>
+                <DataGridTextColumn Header="Aktywność" Binding="{Binding Aktywny}" MinWidth="100"/>
+                <DataGridTextColumn Header="Data utworzenia" Binding="{Binding KiedyUtworzone}" MinWidth="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</local:WszystkieViewBase>

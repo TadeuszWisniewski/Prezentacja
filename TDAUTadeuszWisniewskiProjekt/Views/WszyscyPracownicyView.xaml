@@ -1,0 +1,32 @@
+﻿<local:WszystkieViewBase x:Class="TDAUTadeuszWisniewskiProjekt.Views.WszyscyPracownicyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TDAUTadeuszWisniewskiProjekt.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="StyleZakladekDictionary1.xaml"/>
+    </UserControl.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Visible">
+       
+            <DataGrid Grid.Row="1" AutoGenerateColumns="false" ItemsSource="{Binding List}" SelectedItem="{Binding Path=WybranyP, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Imie" Binding="{Binding Imie}" MinWidth="100"/>
+                    <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}" MinWidth="100"/>
+                    <DataGridTextColumn Header="Pesel" Binding="{Binding Pesel}" MinWidth="100"/>
+                    <DataGridTextColumn Header="DataUrodzenia " Binding="{Binding DataUrodzenia}" MinWidth="100"/>
+                    <DataGridTextColumn Header="Jednostka " Binding="{Binding JednostkaOrganizacyjnaNazwa}" MinWidth="100"/>
+                    <DataGridTextColumn Header="Stawka " Binding="{Binding Stawka}" MinWidth="100"/>
+                    <DataGridTextColumn Header="DataUtworzenia " Binding="{Binding KiedyUtworzone}" MinWidth="100"/>
+                    <DataGridTextColumn Header="Aktywny" Binding="{Binding Aktywny}" MinWidth="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+    </ScrollViewer>
+
+
+</local:WszystkieViewBase>
