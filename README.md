@@ -1,10 +1,10 @@
-#Magazyn
+# Magazyn
 Projekt Magazyn powstaje jako materiał zaliczeniowy przedmiotu Programowanie Desktopowych Aplikacji Biznesowych.
 Na ten moment obejmuje on możliwość dodania towaru, faktury oraz kontrahenta wraz z wszystkimi niezbędnymi składnikami.
 Baza danych zawiera większą liczbę tabel (27) niż obecnie używaną (14) z powodu konieczności rozwoju projektu w kierunku firmy spawalniczej 
 co wymusi utworzenie dodatkowych zakładek.
 
-##Użyte technologie
+## Użyte technologie
 W trakcie pisania projektu korzystam z następujących technologi oraz wzorców:
 <ul>
   <li>T-SQL</li>
@@ -17,7 +17,7 @@ W trakcie pisania projektu korzystam z następujących technologi oraz wzorców:
   <li></li>
 </ul>
 
-##Użycie aplikacji
+## Użycie aplikacji
 Po skompilowaniu projektu mamy do wyboru kilka zakładek po lewej stronie, pasek (toggle bar) znajdujący sie ponad przestrzenią roboczą oraz menu.
 Z dowolnego z tych miejsc wybieramy jeden interesujący nas element np.Towary w którym możemy zobaczyć wszystkie dodane do bazy danych towary oraz za pomocą przycisków znajdujących się w prawym górnym rogu
 dodać nowy towar lub odświerzyć listę towarów co jest niezbędne do wczytania nowej zawartości tabeli po dodaniu nowego elementu.
@@ -32,10 +32,13 @@ znajdujący sie po prawej stronie zakładki wyświetlającej wszystkie rekordy w
 
 W najbliższym czasie do aplikacji zostanie dodana możliwość sortowania i filtrowania rekordów zapisanych w bazie. Zmiany będę dodawał na bierząco.
 
-##Wygląd aplikacji
-Przykładowy widok jednej z zakładek aplikacji.
-<img src="https://github.com/TadeuszWisniewski/Prezentacja/assets/143537984/7e877ece-86bd-4a16-a03a-8d25debe413f" width="50%" height="50%"></imp>
-
 #Kontkat
 Wisniewskibe@gmail.com
 +48 790335743
+
+## Wygląd aplikacji
+Przykładowy widok jednej z zakładek aplikacji.
+
+<img src="https://github.com/TadeuszWisniewski/Prezentacja/assets/143537984/7e877ece-86bd-4a16-a03a-8d25debe413f" width="50%" height="50%"></imp>
+
+
