@@ -18,7 +18,7 @@ W trakcie pisania projektu korzystam z następujących technologi oraz wzorców:
 
 ## Użycie aplikacji
 Po skompilowaniu projektu mamy do wyboru kilka zakładek po lewej stronie, pasek (toggle bar) znajdujący sie ponad przestrzenią roboczą oraz menu.
-Z dowolnego z tych miejsc wybieramy jeden interesujący nas element np."Towary" w którym możemy zobaczyć wszystkie dodane do bazy danych towary oraz za pomocą przycisków znajdujących się w lewym górnym rogu
+Z dowolnego z tych miejsc wybieramy jeden interesujący nas element np."Towary", w którym możemy zobaczyć wszystkie dodane do bazy danych towary oraz za pomocą przycisków znajdujących się w lewym górnym rogu
 dodać nowy towar lub odświeżyć listę towarów co jest niezbędne do wczytania nowej zawartości tabeli po dodaniu nowego elementu.
 
 Należy pamiętać, że do zapisania nowego elementu niezbędne jest wypełnienie niemal wszystkich jego pól. Przy czym wypełnienie pól, pod które są podpięte klucze obce tabeli, w której się obecnie znajdujemy 
