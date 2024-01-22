@@ -21,9 +21,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (_WybranyCPV != value)
                 {
                     _WybranyCPV = value;
-                    //Wysyłamy wybranego kontrahenta do okna nowa faktura 
                     Messenger.Default.Send(_WybranyCPV);
-                    //zamyka okno
                     OnRequestClose();
                 }
             }
@@ -39,20 +37,41 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
         }
         #endregion
-       
+
         #region Pomocniczy
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Nazwa", "Kod"};
+        }
+        public override void sort()
+        {
+
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<KodCPVForView>(List.OrderBy(item => item.Nazwa));
+            if (SortField == "Kod")
+                List = new ObservableCollection<KodCPVForView>(List.OrderBy(item => item.Kod));
+
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Nazwa", "Kod" };
+        }
+        public override void find()
+        {
+            if (FindField == "Nazwa")
+                List = new ObservableCollection<KodCPVForView>(List.Where(item => item.Nazwa != null && item.Nazwa.StartsWith(FindTextBox)));
+            if (FindField == "Kod")
+                List = new ObservableCollection<KodCPVForView>(List.Where(item => item.Kod != null && item.Kod.StartsWith(FindTextBox)));
+        }
         public override void load()
         {
-            //tworzymy observableCollection inicjując ją towarami
             List = new ObservableCollection<KodCPVForView>
                 (
-                    //z bazy danych pobieram wszystkie towary
-                    //tu będzie zapytanie Linq które pobierze tylko potrzebne kolumny
-                    //firmaSpawalniczaEntities.KodCpvs
                     from k in firmaSpawalniczaEntities.KodCpvs
                     select new KodCPVForView
                     {
                         Id= k.Id,
+                        Nazwa = k.Nazwa,
                         Kod=k.Kod,
                         KiedyUtworzono=k.KiedyUtworzono,
                         KiedyZmieniono=k.KiedyZmieniono,
@@ -61,6 +80,5 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 );
         }
         #endregion
-
     }
 }

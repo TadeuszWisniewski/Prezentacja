@@ -15,7 +15,6 @@
         <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}" SelectedItem="{Binding Path=WybranaU, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwa" Binding="{Binding Nazwa}"  MinWidth="100"/>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Opis}" MinWidth="100"/>
                 <DataGridTextColumn Header="Data utworzenia" Binding="{Binding KiedyUtworzone}" MinWidth="100"/>
                 <DataGridTextColumn Header="Aktywność" Binding="{Binding Aktywny}" MinWidth="100"/>
             </DataGrid.Columns>

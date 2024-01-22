@@ -39,6 +39,31 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
 
 
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "NazwaKraju", "NazwaWojewodztwa" };
+        }
+        public override void sort()
+        {
+
+            if (SortField == "NazwaKraju")
+                List = new ObservableCollection<AdresDoKorespondencjiForView>(List.OrderBy(item => item.NazwaKraju));
+            if (SortField == "NazwaWojewodztwa")
+                List = new ObservableCollection<AdresDoKorespondencjiForView>(List.OrderBy(item => item.NazwaWojewodztwa));
+
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "NazwaKraju", "NazwaWojewodztwa" };
+        }
+        public override void find()
+        {
+            if (FindField == "NazwaKraju")
+                List = new ObservableCollection<AdresDoKorespondencjiForView>(List.Where(item => item.NazwaKraju != null && item.NazwaKraju.StartsWith(FindTextBox)));
+            if (FindField == "NazwaWojewodztwa")
+                List = new ObservableCollection<AdresDoKorespondencjiForView>(List.Where(item => item.NazwaWojewodztwa != null && item.NazwaWojewodztwa.StartsWith(FindTextBox)));
+        }
+
         public override void load()
         {
             List = new ObservableCollection<AdresDoKorespondencjiForView>

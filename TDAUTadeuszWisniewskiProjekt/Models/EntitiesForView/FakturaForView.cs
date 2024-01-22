@@ -20,6 +20,7 @@ namespace TDAUTadeuszWisniewskiProjekt.Models.EntitiesForView
         public decimal? KosztDostawy { get; set; }
 
         public int? IdKontrahenta { get; set; }
+        public string? NazwaKontrahenta { get; set; }
 
         public string? PozycjeFaktury { get; set; }
 

@@ -21,9 +21,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (_WybranyT != value)
                 {
                     _WybranyT = value;
-                    //Wysyłamy wybranego kontrahenta do okna nowa faktura 
                     Messenger.Default.Send(_WybranyT);
-                    //zamyka okno
                     OnRequestClose();
                 }
             }
@@ -34,12 +32,40 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
 
         #endregion
+        #region Konstruktor
+
+        #endregion
         public WszystkieTowaryViewModel()
             :base("Towary")
         {
             
         }
+        #region Zaladuj
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Nazwa", "CenaKoncowa" };
+        }
+        public override void sort()
+        {
 
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<TowarForView>(List.OrderBy(item => item.Nazwa));
+            if (SortField == "CenaKoncowa")
+                List = new ObservableCollection<TowarForView>(List.OrderBy(item => item.CenaKoncowa));
+
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Nazwa", "CenaKoncowa" };
+        }
+        public override void find()
+        {
+            if (FindField == "Nazwa")
+                List = new ObservableCollection<TowarForView>(List.Where(item => item.Nazwa != null && item.Nazwa.StartsWith(FindTextBox)));
+            if (FindField == "CenaKoncowa")
+                List = new ObservableCollection<TowarForView>(List.Where(item => item.CenaKoncowa != null && item.CenaKoncowa == Decimal.Parse(FindTextBox)));
+        }
+        #endregion
         public override void load()
         {
             List = new ObservableCollection<TowarForView>

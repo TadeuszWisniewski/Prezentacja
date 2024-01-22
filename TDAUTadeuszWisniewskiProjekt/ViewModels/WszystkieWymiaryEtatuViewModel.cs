@@ -21,9 +21,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (_WybranyW != value)
                 {
                     _WybranyW = value;
-                    //Wysyłamy wybranego kontrahenta do okna nowa faktura 
                     Messenger.Default.Send(_WybranyW);
-                    //zamyka okno
                     OnRequestClose();
                 }
             }
@@ -39,21 +37,40 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Pomocniczy
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Nazwa", "IloscGodzinTygodniowo" };
+        }
+        public override void sort()
+        {
+
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<WymiarEtatuForView>(List.OrderBy(item => item.Nazwa));
+            if (SortField == "IloscGodzinTygodniowo")
+                List = new ObservableCollection<WymiarEtatuForView>(List.OrderBy(item => item.IloscGodzinTygodniowo));
+
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Nazwa", "IloscGodzinTygodniowo" };
+        }
+        public override void find()
+        {
+            if (FindField == "Nazwa")
+                List = new ObservableCollection<WymiarEtatuForView>(List.Where(item => item.Nazwa != null && item.Nazwa.StartsWith(FindTextBox)));
+            if (FindField == "IloscGodzinTygodniowo")
+                List = new ObservableCollection<WymiarEtatuForView>(List.Where(item => item.IloscGodzinTygodniowo != null && item.IloscGodzinTygodniowo == int.Parse(FindTextBox)));
+        }
         public override void load()
         {
-            //tworzymy observableCollection inicjując ją towarami
             List = new ObservableCollection<WymiarEtatuForView>
                 (
-                    //z bazy danych pobieram wszystkie towary
-                    //tu będzie zapytanie Linq które pobierze tylko potrzebne kolumny
-                    //firmaSpawalniczaEntities.WymiarEtatus
                     from w in firmaSpawalniczaEntities.WymiarEtatus
                     select new WymiarEtatuForView
                     {
                         Id = w.Id,
                         Nazwa = w.Nazwa,
                         IloscGodzinTygodniowo = w.IloscGodzinTygodniowo,
-                        Opis = w.Opis,
                         Aktywny = w.Aktywny,
                         KiedyUtworzono = w.KiedyUtworzono
                     }

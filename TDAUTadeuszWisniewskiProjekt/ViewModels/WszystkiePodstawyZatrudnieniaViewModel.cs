@@ -20,9 +20,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (_WybranaP != value)
                 {
                     _WybranaP = value;
-                    //Wysyłamy wybranego kontrahenta do okna nowa faktura 
                     Messenger.Default.Send(_WybranaP);
-                    //zamyka okno
                     OnRequestClose();
                 }
             }
@@ -38,20 +36,34 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Pomocniczy
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Nazwa"};
+        }
+        public override void sort()
+        {
+
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<PodstawaZatrudnieniaForView>(List.OrderBy(item => item.Nazwa));
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Nazwa"};
+        }
+        public override void find()
+        {
+            if (FindField == "Nazwa")
+                List = new ObservableCollection<PodstawaZatrudnieniaForView>(List.Where(item => item.Nazwa != null && item.Nazwa.StartsWith(FindTextBox)));
+        }
         public override void load()
         {
-            //tworzymy observableCollection inicjując ją towarami
             List = new ObservableCollection<PodstawaZatrudnieniaForView>
                 (
-                    //z bazy danych pobieram wszystkie towary
-                    //tu będzie zapytanie Linq które pobierze tylko potrzebne kolumny
-                    //firmaSpawalniczaEntities.PodstawaZatrudnienia
                     from p in firmaSpawalniczaEntities.PodstawaZatrudnienia
                     select new PodstawaZatrudnieniaForView
                     {
                         Id = p.Id,
                         Nazwa = p.Nazwa,
-                        Opis = p.Opis,
                         KiedyUtworzone = p.KiedyUtworzone,                       
                         Aktywny = p.Aktywny
                     }

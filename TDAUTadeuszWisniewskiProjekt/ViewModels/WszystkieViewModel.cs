@@ -11,19 +11,14 @@ using TDAUTadeuszWisniewskiProjekt.Models.Context;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
-    //to jest klasa z której będą dziedziczyć wszystkie view modele typu "Wszystkie.."
-    //ta klasa jest abstrakcyjna bo zawiera metodę abstrakcyjną
     public abstract class WszystkieViewModel<T>:WorkspaceViewModel
     {
         #region DB
-        //to jest obiekt reprezentujący całą bazę danych
         protected readonly FirmaSpawalniczaEntities firmaSpawalniczaEntities;
         #endregion
+
         #region Command
-        //komenda służy do tego żeby ją podłączać pod akcję np: pod naciśnięcie przycisku
-        //Pod przycisk podpinamy komendę która wywołuje funkcję load
         public BaseCommand _LoadCommand;
-        
         public ICommand LoadCommand
         {
             get
@@ -35,7 +30,6 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 return _LoadCommand;
             }
         }
-        //To jest komenda która zostanie podpięta pod przycisk '+' do dodawania rekordów 
         private BaseCommand _AddCommand;
         public ICommand AddCommand
         {
@@ -43,15 +37,37 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (_AddCommand == null)
                 {
-                    //wywoła ona metodę add()
                     _AddCommand = new BaseCommand(() => add());
                 }
                 return _AddCommand;
             }
         }
+        private BaseCommand _SortCommand; 
+        public ICommand SortCommand
+        {
+            get
+            {
+                if (_SortCommand == null)
+                {
+                    _SortCommand = new BaseCommand(() => sort());
+                }
+                return _SortCommand;
+            }
+        }
+        private BaseCommand _FindCommand;
+        public ICommand FindCommand
+        {
+            get
+            {
+                if(_FindCommand == null)
+                {
+                    _FindCommand = new BaseCommand(() => find());
+                }
+                return _FindCommand;
+            }
+        }
         #endregion
         #region Kolekcja
-        //tu będziemy przechowywać towary
         private ObservableCollection<T> _List;
         public ObservableCollection<T> List
         {
@@ -71,24 +87,45 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             }
         }
         #endregion
+
+        #region Properties
+        public string SortField { get; set; }
+        public List<string> SortComboBoxItems
+        {
+            get
+            {
+                return getComboboxSortList();
+            }
+        }
+        public string FindField { get; set; }
+        public string FindTextBox {  get; set; }
+        public List<string> FindComboBoxItems
+        {
+            get
+            {
+                return getComboboxFindList();
+            }
+        }
+        #endregion
+
         #region Konstruktor
-
-
         public WszystkieViewModel(string displayName)
         {
-            base.DisplayName = displayName;//to jest ustawienie nazwy zkładki
-            //tworzę obiekt dostępowwy do bazy danych
+            base.DisplayName = displayName;
             firmaSpawalniczaEntities = new FirmaSpawalniczaEntities();
         }
         #endregion
+
         #region Pomocniczy
-        //ta metoda jest abstrakcyjna bo nie wiemy jak ją napisać w klasie view model a wiemy dopiero w view model
         public abstract void load();
         public void add()
         {
-            //ta metoda wyśle przy pomocy messengera z MVVMLight komunikat do main window view model o konieczności otworzenia okna
             Messenger.Default.Send(DisplayName + "Add");
         }
+        public abstract void sort();
+        public abstract List<String> getComboboxSortList();
+        public abstract void find();
+        public abstract List<String> getComboboxFindList();
         #endregion
     }
 }

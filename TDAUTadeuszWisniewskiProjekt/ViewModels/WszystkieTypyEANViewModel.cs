@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TDAUTadeuszWisniewskiProjekt.Models.Entities;
+using TDAUTadeuszWisniewskiProjekt.Models.EntitiesForView;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
@@ -17,13 +18,25 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Pomocniczy
+        //nie robię wyszukiwania i sortowania bo nie wyświetlam tej tabeli.
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "" };
+        }
+        public override void sort()
+        {
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { ""};
+        }
+        public override void find()
+        {
+        }
         public override void load()
         {
-            //tworzymy observableCollection inicjując ją towarami
             List = new ObservableCollection<Eantyp>
                 (
-                    //z bazy danych pobieram wszystkie towary
-                    //tu będzie zapytanie Linq które pobierze tylko potrzebne kolumny
                     firmaSpawalniczaEntities.Eantyps
                 );
         }

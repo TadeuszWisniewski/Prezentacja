@@ -8,9 +8,7 @@ using TDAUTadeuszWisniewskiProjekt.Helpers;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
-    //to jest viewModel do odziedziczenia przez viewModele reprezentujace zakladki
-    // kazda zakladka bedzie dziedziczyla po workspaceViewModel
-    //kazda zakladka ma nazwe i przycisk do zamkniecia
+
     public class WorkspaceViewModel : BaseViewModel
     {
         #region Pola i wlasciwosci

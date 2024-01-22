@@ -39,6 +39,30 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Zaladuj
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Nazwa", "Skrot" };
+        }
+        public override void sort()
+        {
+
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<WalutaForView>(List.OrderBy(item => item.Nazwa));
+            if (SortField == "Skrot")
+                List = new ObservableCollection<WalutaForView>(List.OrderBy(item => item.Skrot));
+
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Nazwa", "Skrot" };
+        }
+        public override void find()
+        {
+            if (FindField == "Nazwa")
+                List = new ObservableCollection<WalutaForView>(List.Where(item => item.Nazwa != null && item.Nazwa.StartsWith(FindTextBox)));
+            if (FindField == "Skrot")
+                List = new ObservableCollection<WalutaForView>(List.Where(item => item.Skrot != null && item.Skrot.StartsWith(FindTextBox)));
+        }
         public override void load()
         {
             List = new ObservableCollection<WalutaForView>

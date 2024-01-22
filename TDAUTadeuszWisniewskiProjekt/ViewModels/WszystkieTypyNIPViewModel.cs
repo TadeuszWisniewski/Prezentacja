@@ -20,9 +20,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (WybranyT != value)
                 {
                     _WybranyT = value;
-                    //Wysyłamy wybranego kontrahenta do okna nowa faktura 
                     Messenger.Default.Send(_WybranyT);
-                    //zamyka okno
                     OnRequestClose();
                 }
             }
@@ -38,14 +36,29 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Pomocniczy
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "IloscCyfr" };
+        }
+        public override void sort()
+        {
+
+            if (SortField == "IloscCyfr")
+                List = new ObservableCollection<TypNIPForView>(List.OrderBy(item => item.IloscCyfr));
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "IloscCyfr" };
+        }
+        public override void find()
+        {
+            if (FindField == "IloscCyfr")
+                List = new ObservableCollection<TypNIPForView>(List.Where(item => item.IloscCyfr != null && item.IloscCyfr == int.Parse(FindTextBox)));
+        }
         public override void load()
         {
-            //tworzymy observableCollection inicjując ją towarami
             List = new ObservableCollection<TypNIPForView>
                 (
-                    //z bazy danych pobieram wszystkie towary
-                    //tu będzie zapytanie Linq które pobierze tylko potrzebne kolumny
-                    //firmaSpawalniczaEntities.TypNips
                     from t in firmaSpawalniczaEntities.TypNips
                     select new TypNIPForView
                     {

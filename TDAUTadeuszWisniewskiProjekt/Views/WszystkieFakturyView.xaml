@@ -17,6 +17,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Numer" Binding="{Binding Numer}"  MinWidth="100"/>
                 <DataGridTextColumn Header="Cena końcowa" Binding="{Binding WartoscPoRabacie}"  MinWidth="100"/>
+                <DataGridTextColumn Header="Nazwa kontrahenta" Binding="{Binding NazwaKontrahenta}"  MinWidth="100"/>
                 <DataGridTextColumn Header="Data utworzenia" Binding="{Binding KiedyUtworzono}"  MinWidth="100"/>
                 <DataGridTextColumn Header="Data modyfikacji" Binding="{Binding KiedyZmieniono}"  MinWidth="100"/>
                 <DataGridTextColumn Header="Aktywny" Binding="{Binding Aktywny}"  MinWidth="100"/>

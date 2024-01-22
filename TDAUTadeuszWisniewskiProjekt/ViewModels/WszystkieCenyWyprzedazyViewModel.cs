@@ -37,14 +37,29 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Pomocniczy
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Wartosc" };
+        }
+        public override void sort()
+        {
+
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<CenaWyprzedazyForView>(List.OrderBy(item => item.Wartosc));
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Wartosc" };
+        }
+        public override void find()
+        {
+            if (FindField == "Wartosc")
+                List = new ObservableCollection<CenaWyprzedazyForView>(List.Where(item => item.Wartosc != null && item.Wartosc == Decimal.Parse(FindTextBox)));
+        }
         public override void load()
         {
-            //tworzymy observableCollection inicjując ją towarami
             List = new ObservableCollection<CenaWyprzedazyForView>
                 (
-                    //z bazy danych pobieram wszystkie towary
-                    //tu będzie zapytanie Linq które pobierze tylko potrzebne kolumny
-                    //firmaSpawalniczaEntities.Cenas
                     from c in firmaSpawalniczaEntities.Cenas
                     select new CenaWyprzedazyForView
                     {

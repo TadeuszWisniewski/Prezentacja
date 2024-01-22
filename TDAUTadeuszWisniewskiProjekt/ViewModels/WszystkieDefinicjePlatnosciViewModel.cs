@@ -22,9 +22,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (_WybranaD != value)
                 {
                     _WybranaD = value;
-                    //Wysyłamy wybranego kontrahenta do okna nowa faktura 
                     Messenger.Default.Send(_WybranaD);
-                    //zamyka okno
                     OnRequestClose();
                 }
             }
@@ -41,6 +39,25 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Pomocniczy
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Nazwa" };
+        }
+        public override void sort()
+        {
+
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<DefinicjaPlatnosciForView>(List.OrderBy(item => item.Nazwa));
+          }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Nazwa" };
+        }
+        public override void find()
+        {
+            if (FindField == "Nazwa")
+                List = new ObservableCollection<DefinicjaPlatnosciForView>(List.Where(item => item.Nazwa != null && item.Nazwa.StartsWith(FindTextBox)));
+        }
         public override void load()
         {
             List = new ObservableCollection<DefinicjaPlatnosciForView>

@@ -33,6 +33,25 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             : base("Miejsca urodzenia")
         {
         }
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Nazwa"};
+        }
+        public override void sort()
+        {
+
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<MiejsceUrodzeniaForView>(List.OrderBy(item => item.NazwaMiejscowosci));
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Nazwa" };
+        }
+        public override void find()
+        {
+            if (FindField == "Nazwa")
+                List = new ObservableCollection<MiejsceUrodzeniaForView>(List.Where(item => item.NazwaMiejscowosci != null && item.NazwaMiejscowosci.StartsWith(FindTextBox)));
+        }
         public override void load()
         {
             List= new ObservableCollection<MiejsceUrodzeniaForView>
@@ -43,7 +62,6 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     Id = miejsce.Id,
                     IdMiejscowosc = miejsce.IdMiejscowosc,
                     NazwaMiejscowosci = miejsce.IdMiejscowoscNavigation.Nazwa,
-                    Opis = miejsce.Opis,
                     KiedyUtworzone = miejsce.KiedyUtworzone,
                     Aktywny = miejsce.Aktywny
                 }

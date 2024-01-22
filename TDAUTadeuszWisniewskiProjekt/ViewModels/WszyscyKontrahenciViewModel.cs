@@ -22,9 +22,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (_WybranyK != value)
                 {
                     _WybranyK = value;
-                    //Wysyłamy wybranego kontrahenta do okna nowa faktura 
                     Messenger.Default.Send(_WybranyK);
-                    //zamyka okno
                     OnRequestClose();
                 }
             }
@@ -37,6 +35,32 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         public WszyscyKontrahenciViewModel() 
             :base("Kontrahenci")
         {
+        }
+
+
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Nazwa", "NIP" };
+        }
+        public override void sort()
+        {
+
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<KontrahentForView>(List.OrderBy(item => item.Bazwa));
+            if (SortField == "NIP")
+                List = new ObservableCollection<KontrahentForView>(List.OrderBy(item => item.Nip));
+
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Nazwa", "NIP" };
+        }
+        public override void find()
+        {
+            if (FindField == "Nazwa")
+                List = new ObservableCollection<KontrahentForView>(List.Where(item => item.Bazwa != null && item.Bazwa.StartsWith(FindTextBox)));
+            if (FindField == "NIP")
+                List = new ObservableCollection<KontrahentForView>(List.Where(item => item.Nip != null && item.Nip.StartsWith(FindTextBox)));
         }
 
         public override void load()

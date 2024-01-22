@@ -20,9 +20,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (_WybraneS != value)
                 {
                     _WybraneS = value;
-                    //Wysyłamy wybranego kontrahenta do okna nowa faktura 
                     Messenger.Default.Send(_WybraneS);
-                    //zamyka okno
                     OnRequestClose();
                 }
             }
@@ -39,20 +37,34 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Pomocniczy
+        public override List<string> getComboboxSortList()
+        {
+            return new List<string> { "Nazwa" };
+        }
+        public override void sort()
+        {
+
+            if (SortField == "Nazwa")
+                List = new ObservableCollection<StanowiskoForView>(List.OrderBy(item => item.Nazwa));
+        }
+        public override List<string> getComboboxFindList()
+        {
+            return new List<string> { "Nazwa" };
+        }
+        public override void find()
+        {
+            if (FindField == "Nazwa")
+                List = new ObservableCollection<StanowiskoForView>(List.Where(item => item.Nazwa != null && item.Nazwa.StartsWith(FindTextBox)));
+        }
         public override void load()
         {
-            //tworzymy observableCollection inicjując ją towarami
             List = new ObservableCollection<StanowiskoForView>
                 (
-                    //z bazy danych pobieram wszystkie towary
-                    //tu będzie zapytanie Linq które pobierze tylko potrzebne kolumny
-                    //firmaSpawalniczaEntities.Stanowiskos
                     from s in firmaSpawalniczaEntities.Stanowiskos
                     select new StanowiskoForView
                     {
                         Id = s.Id,
                         Nazwa = s.Nazwa,
-                        Opis = s.Opis,
                         KiedyUtworzone = s.KiedyUtworzone,
                         Aktywny = s.Aktywny
                     }

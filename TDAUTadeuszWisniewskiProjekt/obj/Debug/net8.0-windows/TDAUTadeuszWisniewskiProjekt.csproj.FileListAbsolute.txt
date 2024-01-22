@@ -555,3 +555,4 @@ C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProj
 C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\bin\Debug\net8.0-windows\Views\Content\Icons\support.png
 C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\bin\Debug\net8.0-windows\Views\Content\Icons\warning.png
 C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\bin\Debug\net8.0-windows\Views\Content\Icons\refresh.png
+C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\obj\Debug\net8.0-windows\TDAUTadeuszWisniewskiProjekt.sourcelink.json

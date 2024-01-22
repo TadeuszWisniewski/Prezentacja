@@ -16,7 +16,6 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwa" Binding="{Binding Nazwa}"  MinWidth="100"/>
                 <DataGridTextColumn Header="Ilosc godzin tygodniowo" Binding="{Binding IloscGodzinTygodniowo}"  MinWidth="100"/>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Opis}" MinWidth="100"/>
                 <DataGridTextColumn Header="Data utworzenia" Binding="{Binding KiedyUtworzono}" MinWidth="100"/>
                 <DataGridTextColumn Header="Aktywność" Binding="{Binding Aktywny}" MinWidth="100"/>
             </DataGrid.Columns>
