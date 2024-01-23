@@ -40,4 +40,4 @@ Przykładowy widok jednej z zakładek aplikacji.
 
 <img src="https://github.com/TadeuszWisniewski/Prezentacja/assets/143537984/7e877ece-86bd-4a16-a03a-8d25debe413f" width="70%" height="70%"></imp>
 
- [![HitCount](https://hits.dwyl.com/TadeuszWisniewski/Prezentacja.svg?style=flat-square)](http://hits.dwyl.com/TadeuszWisniewski/Prezentacja)
+   [![HitCount](https://hits.dwyl.com/TadeuszWisniewski/Prezentacja.svg?style=flat-square&show=unique)](http://hits.dwyl.com/TadeuszWisniewski/Prezentacja)
