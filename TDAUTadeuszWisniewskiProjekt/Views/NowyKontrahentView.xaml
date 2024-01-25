@@ -132,9 +132,9 @@
 
                     <Label Content="Data aktualizacji MF" Grid.Row="4" Grid.Column="0" />
                     <DatePicker Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
-                    SelectedDate="{Binding DataAktualizacjiMF, Mode=TwoWay}"
-                    DisplayDateStart="1/01/2000"
-                    DisplayDateEnd="{Binding Mode=OneWay, Source={x:Static System:DateTime.Today}}"
+                        SelectedDate="{Binding DataAktualizacjiMF, Mode=TwoWay}"
+                        DisplayDateStart="1/01/2000"
+                        DisplayDateEnd="{Binding Mode=OneWay, Source={x:Static System:DateTime.Today}}"
                     />
 
                     <Label Content="Status w bazie VIES" Grid.Row="5" Grid.Column="0"  />
@@ -143,9 +143,9 @@
 
                     <Label Content="Data aktualizacji VIES" Grid.Row="6" Grid.Column="0" />
                     <DatePicker Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
-                    SelectedDate="{Binding DataAktualizacjiVIES, Mode=TwoWay}"
-                    DisplayDateStart="1/01/2000"
-                    DisplayDateEnd="{Binding Mode=OneWay, Source={x:Static System:DateTime.Today}}"
+                        SelectedDate="{Binding DataAktualizacjiVIES, Mode=TwoWay}"
+                        DisplayDateStart="1/01/2000"
+                        DisplayDateEnd="{Binding Mode=OneWay, Source={x:Static System:DateTime.Today}}"
                     />
                 </Grid>
             </Expander>
@@ -399,8 +399,8 @@
                     <Label Grid.Row="0" Grid.Column="5" Content="Waluta domyślna" HorizontalContentAlignment="Right"/>
                     <ComboBox Grid.Row="0" Grid.Column="6"  
                         ItemsSource="{Binding WalutaComboBoxItems}"
-                        DisplayMemberPath="Nazwa"
-                        SelectedValuePath="Id"
+                        DisplayMemberPath="Value"
+                        SelectedValuePath="Key"
                         SelectedValue="{Binding Path=IdWaluta, Mode=TwoWay}"
                     />
                 </Grid>

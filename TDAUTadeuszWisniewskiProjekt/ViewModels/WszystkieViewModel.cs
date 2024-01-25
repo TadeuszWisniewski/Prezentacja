@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TDAUTadeuszWisniewskiProjekt.Helpers;
 using TDAUTadeuszWisniewskiProjekt.Models.Context;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
@@ -99,6 +101,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         public string FindField { get; set; }
         public string FindTextBox {  get; set; }
+        
         public List<string> FindComboBoxItems
         {
             get

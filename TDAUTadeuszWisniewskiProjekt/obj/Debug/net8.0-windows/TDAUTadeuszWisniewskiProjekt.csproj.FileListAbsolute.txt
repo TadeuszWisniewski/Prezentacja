@@ -556,3 +556,9 @@ C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProj
 C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\bin\Debug\net8.0-windows\Views\Content\Icons\warning.png
 C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\bin\Debug\net8.0-windows\Views\Content\Icons\refresh.png
 C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\obj\Debug\net8.0-windows\TDAUTadeuszWisniewskiProjekt.sourcelink.json
+C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\obj\Debug\net8.0-windows\Views\RaportSprzedazyView.g.cs
+C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\obj\Debug\net8.0-windows\Views\RaportSprzedazyView.baml
+C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\obj\Debug\net8.0-windows\Views\RaportKontrahentowView.g.cs
+C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\obj\Debug\net8.0-windows\Views\RaportKontrahentowView.baml
+C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\obj\Debug\net8.0-windows\Views\RaportWyplatView.g.cs
+C:\Users\wisni\source\repos\WłaściwyPlikZaliczeniowy\TDAUTadeuszWisniewskiProjekt\TDAUTadeuszWisniewskiProjekt\obj\Debug\net8.0-windows\Views\RaportWyplatView.baml

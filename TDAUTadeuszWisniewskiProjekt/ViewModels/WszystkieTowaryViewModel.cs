@@ -77,6 +77,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     Nazwa= T.Nazwa,
                     CenaKoncowa = T.CenaKoncowa,
                     WysokoscVAT = T.IdStawkiVatsprzedazyNavigation.Wysokosc,
+                    Blokada = T.Blokada,
                     KiedyUtworzone= T.KiedyUtworzone,  
                     KiedyZmieniono=T.KiedyZmieniono,
                     Aktywny=T.Aktywny,

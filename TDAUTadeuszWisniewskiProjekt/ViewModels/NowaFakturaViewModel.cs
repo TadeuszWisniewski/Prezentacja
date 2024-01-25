@@ -16,6 +16,8 @@ using TDAUTadeuszWisniewskiProjekt.Models.Context;
 using TDAUTadeuszWisniewskiProjekt.Models.Entities;
 using TDAUTadeuszWisniewskiProjekt.Models.EntitiesForView;
 using Microsoft.Win32;
+using TDAUTadeuszWisniewskiProjekt.Models.Validatory;
+using TDAUTadeuszWisniewskiProjekt.Models.BusinessLogic;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
@@ -103,6 +105,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             item = new Faktura();
             _DataUtworzenia = DateTime.Today;
+            fakturaB = new FakturaB(firmaSpawalniczaEntities);
 
             Messenger.Default.Register<KontrahentForView>(this, getWybranyKontrahent);
             Messenger.Default.Register<TowarForView>(this, getWybranyTowar);
@@ -129,11 +132,15 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             if (k.Aktywny == false)
             {
                 MessageBox.Show("Wybrany kontrahent nie jest aktywny", "Błędny kontrahent", MessageBoxButton.OK, MessageBoxImage.Error);
+                IdKontrahenta = null;
+                KontrahentNazwa = null;
                 return;
             }
             if(k.BlokadaSprzedazy == true)
             {
-                MessageBox.Show("Wybrany kontrahent nie zablokowany dla sprzedazy", "Błędny kontrahent", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Wybrany kontrahent jest zablokowany dla sprzedazy", "Błędny kontrahent", MessageBoxButton.OK, MessageBoxImage.Error);
+                IdKontrahenta = null;
+                KontrahentNazwa = null;
                 return;
             }
             IdKontrahenta = k.Id;
@@ -143,9 +150,12 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         private void getWybranyTowar(TowarForView t)
         {
             //Sprawdzam, czy wybrany towar jest aktywny
-            if(t.Aktywny == false)
+            if(t.Aktywny == false || t.Blokada == true)
             {
                 MessageBox.Show("Wybrany towar nie jest aktywny", "Błędny towar", MessageBoxButton.OK, MessageBoxImage.Error);
+                IdTowar = null;
+                NazwaTowar = null;
+                CenaTowar = null;
                 return;
             }
             IdTowar = t.Id;
@@ -184,19 +194,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
            
             if (!(ListaPozycjiFaktury.IsNullOrEmpty()))
             {
-                decimal? CenaPoczatkowa = null;
-                foreach (PozycjaNaFakturzeForView p in ListaPozycjiFaktury)
-                {
-                    if (CenaPoczatkowa == null)
-                    {
-                        CenaPoczatkowa = p.Cena * p.Ilosc;
-                    }
-                    else
-                    {
-                        CenaPoczatkowa = CenaPoczatkowa + (p.Cena * p.Ilosc);
-                    }
-                }
-                Wartosc = CenaPoczatkowa;
+                Wartosc = fakturaB.ObliczCenaPoczatkowa(ListaPozycjiFaktury);
             }
             else
             {
@@ -228,6 +226,19 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             ObliczCenaPoczatkowa();
             if (Wartosc == null) return false;
+            if (Dostawa == true)
+            {
+                if (KosztDostawy != null)
+                {
+                    CenaPoRabacie += KosztDostawy;
+                }
+                else
+                {
+                    MessageBoxResult wynik = MessageBox.Show("Wprowadź koszt dostawy albo odznacz", "Rabat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CenaPoRabacie = null;
+                    return false;
+                }
+            }
             if (RabatCeny == null)
             {
                 MessageBoxResult wynik = MessageBox.Show("Czy chcesz wprowadzić wartość rabatu?", "Rabat", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
@@ -239,6 +250,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (wynik == MessageBoxResult.No)
                 {
                     CzyRabatAktywny = false;
+                    RabatCeny = null;
                     CenaPoRabacie = Wartosc;
                 }
             }
@@ -246,19 +258,13 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 CenaPoRabacie = Wartosc - RabatCeny;
             }
-            if(Dostawa == true)
-            {
-                if(KosztDostawy != null)
-                {
-                    CenaPoRabacie += KosztDostawy;
-                }
-            }
+            
 
             return true;
         }
         public override int Zakoncz()
         {
-            if (Aktywny == false || Numer.IsNullOrEmpty() || IdKontrahenta == null || ListaPozycjiFaktury.IsNullOrEmpty() )
+            if (!(new WalidatorOgolny().WalidatorFakturaZakoncz(Aktywny, Numer, IdKontrahenta, ListaPozycjiFaktury)))
             {
                 return 0;
             }
@@ -273,6 +279,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Pola
+        FakturaB fakturaB;
         #region PierwszyWiersz
         private readonly DateTime? _DataUtworzenia;
         public DateTime? DataUtworzenia
@@ -282,6 +289,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.KiedyUtworzono != _DataUtworzenia)
                 {
                     item.KiedyUtworzono = _DataUtworzenia;
+                    OnPropertyChanged(() => DataUtworzenia);
                 }
                 return item.KiedyUtworzono;
             }
@@ -293,6 +301,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.KiedyZmieniono != DateTime.Today && item.KiedyUtworzono != DateTime.Today)
                 {
                     item.KiedyZmieniono = DateTime.Today;
+                    OnPropertyChanged(() => DataModyfikacji);
                 }
                 return item.KiedyZmieniono;
             }
@@ -303,7 +312,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Aktywny == null)
                 {
-                    return item.Aktywny = true;
+                    item.Aktywny = true;
+                    OnPropertyChanged(() => Aktywny);
+                    return item.Aktywny;
                 }
                 else
                 {
@@ -331,10 +342,11 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Numer != value)
                 {
-                    if(value  == null || value.StartsWith(' '))
+                    if(value.Contains(' '))
                     {
                         MessageBox.Show("Błędny numer dokumentu", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Numer = null;
+                        base.OnPropertyChanged(() => Numer);
                         return;
                     }
                     item.Numer = value;
@@ -348,7 +360,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Dostawa == null)
                 {
-                    return item.Dostawa = false;
+                    item.Dostawa = false;
+                    OnPropertyChanged(() => Dostawa);
+                    return item.Dostawa;
                 }
                 else
                 {
@@ -558,6 +572,26 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 {
                     item.WartoscPoRabacie = value;
                     OnPropertyChanged(() => CenaPoRabacie);
+                }
+            }
+        }
+        public bool? CzyZaplacone
+        {
+            get
+            {
+                if(item.Zaplacone == null)
+                {
+                    item.Zaplacone = false;
+                    OnPropertyChanged(() => CzyZaplacone);
+                }
+                return item.Zaplacone;
+            }
+            set
+            {
+                if(item.Zaplacone != value)
+                {
+                    item.Zaplacone = value;
+                    OnPropertyChanged(() => CzyZaplacone);
                 }
             }
         }

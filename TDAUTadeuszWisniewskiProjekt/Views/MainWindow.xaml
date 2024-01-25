@@ -16,9 +16,8 @@
     <Window.InputBindings>
         <KeyBinding Key="A" Modifiers="Ctrl" Command="{Binding TowarCommand}"/>
         <KeyBinding Key="B" Modifiers="Ctrl" Command="{Binding TowaryCommand}"/>
-        <!--Chwilowo brak implementacji poniższego-->
-        <!--<KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding PracownikCommand}"/>
-        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding PracownicyCommand}"/>-->
+        <KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding PracownikCommand}"/>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding PracownicyCommand}"/>
         <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding FakturaCommand}"/>
         <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding FakturyCommand}"/>
         <KeyBinding Key="G" Modifiers="Ctrl" Command="{Binding KontrahentCommand}"/>
@@ -88,6 +87,8 @@
                 <MenuItem Header="Waluty" Command="{Binding WalutyCommand}"/>
                 <MenuItem Header="EAN typ" Command="{Binding EANTypCommand}"/>
                 <MenuItem Header="EAN typy" Command="{Binding EANTypyCommand}"/>
+                <MenuItem Header ="NIP typ" Command="{Binding TypNIPCommand}"/>
+                <MenuItem Header="NIP typy" Command="{Binding TypyNIPCommand}"/>
             </MenuItem>
             
             <!--Komentarz poniższego bloku z powodu braku implementacji racownika, reszta jest uzywana do szybkiego dostępu do zakładek w celu np testu-->

@@ -409,7 +409,6 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
 
-
         //Okno glowne zawiera kolekcje linkow (command view modeli) oraz kolekcje zakladek (workspace view modeli)
         #region Commands
         private ReadOnlyCollection<CommandViewModel> _Commands;
@@ -438,13 +437,15 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 // tu decydue jakie linki beda po lewej stronie (nazwy tych linkow i jakie funkcje wywoluja)
                 new CommandViewModel("Towar",new BaseCommand(CreateTowar)),
                 new CommandViewModel("Towary",new BaseCommand(ShowAllTowar)),
-                //Komentuje do czasu implementacji
-                //new CommandViewModel("Pracownik",new BaseCommand(CreatePracownik)),
-                //new CommandViewModel("Pracownicy",new BaseCommand(ShowAllPracownicy)),
+                new CommandViewModel("Pracownik",new BaseCommand(CreatePracownik)),
+                new CommandViewModel("Pracownicy",new BaseCommand(ShowAllPracownicy)),
                 new CommandViewModel("Faktura",new BaseCommand(CreateFaktura)),
                 new CommandViewModel("Faktury",new BaseCommand(ShowAllFaktury)),
                 new CommandViewModel("Kontrahent",new BaseCommand(CreateKontrahent)),
                 new CommandViewModel("Kontrahenci",new BaseCommand(ShowAllKontrahenci)),
+                new CommandViewModel("Raport sprzedaży", new BaseCommand(CreateRaportSprzedazy)),
+                new CommandViewModel("Raport kontrahenci", new BaseCommand(CreateRaportKontrahenci)),
+                new CommandViewModel("Raport wypłat", new BaseCommand(CreateRaportWyplat)),
 
             };
         }
@@ -1185,6 +1186,27 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             }
             SetActiveWorkspace(workspace);
         }
+        private void CreateRaportSprzedazy()
+        {
+            RaportSprzedazyViewModel workspace = new RaportSprzedazyViewModel();
+            Workspaces.Add(workspace);
+            SetActiveWorkspace(workspace);
+        }
+        private void CreateRaportKontrahenci()
+        {
+            RaportKontrahentowViewModel workspace = new RaportKontrahentowViewModel();
+            Workspaces.Add(workspace);
+            SetActiveWorkspace(workspace);
+        }
+        private void CreateRaportWyplat()
+        {
+            RaportWyplatViewModel workspace = new RaportWyplatViewModel();
+            Workspaces.Add(workspace);
+            SetActiveWorkspace(workspace);
+        }
+
+
+
         private void SetActiveWorkspace(WorkspaceViewModel workspace)
         {
             Debug.Assert(this.Workspaces.Contains(workspace));

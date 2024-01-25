@@ -9,8 +9,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TDAUTadeuszWisniewskiProjekt.Helpers;
+using TDAUTadeuszWisniewskiProjekt.Models.BusinessLogic;
+using TDAUTadeuszWisniewskiProjekt.Models.Context;
 using TDAUTadeuszWisniewskiProjekt.Models.Entities;
 using TDAUTadeuszWisniewskiProjekt.Models.EntitiesForView;
+using TDAUTadeuszWisniewskiProjekt.Models.Validatory;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
@@ -132,6 +135,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             item = new Kontrahent();
             _DataUtworzenia = DateTime.Today;
+            kontrahentB = new KontrahentB(firmaSpawalniczaEntities);
 
             Messenger.Default.Register<StatusWBazieMFForView>(this, getWybranyStatusWBazie);
             Messenger.Default.Register<StatusWBazieVIESForView>(this, getWybranyStatusWBazieVIES);
@@ -220,21 +224,19 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             AdresDoKorespondencjiTelefonSms = null;
             AdresDoKorespondencjiEmail = null;
         }
-        private void StworzKod()
-        {
-            Kod = Nazwa.Substring(0, 3);
-        }
         public override int Zakoncz()
         {
-            if (Aktywny == false || LimitKredytu == null  || IdStatus == null || IdFormaPrawna == null || IdStatusMF == null || IdStatusVIES == null || Nazwa.IsNullOrEmpty() || Nip.IsNullOrEmpty() || Pesel.IsNullOrEmpty() || Regon.IsNullOrEmpty() || Krs.IsNullOrEmpty() || GlnIln.IsNullOrEmpty() || StronaWww.IsNullOrEmpty() || IdAdresZameldowania == null || IdDefinicjaPlatnosci == null || IdWaluta == null)
+            if (!(new WalidatorOgolny().WalidatorKontrahentZakoncz(Aktywny, LimitKredytu, IdStatus, IdFormaPrawna, IdStatusMF, IdStatusVIES, Nazwa, Nip, Pesel, Regon, Krs, GlnIln, 
+                StronaWww, IdAdresZameldowania, IdDefinicjaPlatnosci, IdWaluta, AdresDoKorespondencjiInnyNizAdresZameldowania, IdAdresDoKorespondencji)))
             {
                 return 0;
             }
-            StworzKod();
+            Kod=kontrahentB.StworzKod(Nazwa);
             return 1;
         }
         #endregion
         #region Pola
+        KontrahentB? kontrahentB;
         #region PierwszyWiersz
         #region Prawa
         private readonly DateTime? _DataUtworzenia;
@@ -245,6 +247,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.KiedyUtworzone != _DataUtworzenia)
                 {
                     item.KiedyUtworzone = _DataUtworzenia;
+                    OnPropertyChanged(() => DataUtworzenia);
                 }
                 return item.KiedyUtworzone;
             }
@@ -256,6 +259,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.KiedyZmieniono != DateTime.Today && item.KiedyUtworzone != DateTime.Today)
                 {
                     item.KiedyZmieniono = DateTime.Today;
+                    OnPropertyChanged(() => DataModyfikacji);
                 }
 
                 return item.KiedyZmieniono;
@@ -267,7 +271,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Aktywny == null)
                 {
-                    return item.Aktywny = true;
+                    item.Aktywny = true;
+                    OnPropertyChanged(() => Aktywny);
+                    return item.Aktywny;
                 }
                 else
                 {
@@ -285,8 +291,10 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         #endregion
         #region Lewa
+        //ten region tylko do podglądu bo wszystko sie usupelni poza limitem w raporcie kontrahenta
         public decimal? LacznaWartoscFaktur
         {
+            //jezeli dodam opcje modyfikowania to nie przyda
             get
             {
                 return (
@@ -323,11 +331,16 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.LimitKredytu != value)
                 {
-
-                    if( value.ToString().StartsWith(' '))
+                    if(value == null)
+                    {
+                        item.LimitKredytu = value;
+                        OnPropertyChanged(() => LimitKredytu);
+                    }
+                    if( value == 0)
                     {
                         MessageBox.Show("Błędne dane", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.LimitKredytu = null;
+                        OnPropertyChanged(() => LimitKredytu);
                         return;
                     }
                     item.LimitKredytu = value;
@@ -360,7 +373,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.BlokadaSprzedazy == null)
                 {
-                    return item.BlokadaSprzedazy = false;
+                    item.BlokadaSprzedazy = false;
+                    OnPropertyChanged(() => BlokadaSprzedazy);
+                    return item.BlokadaSprzedazy;
                 }
                 else
                 {
@@ -385,7 +400,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if(item.PodatnikVat == null)
                 {
-                    return PodatnikVat = true;
+                    PodatnikVat = true;
+                    OnPropertyChanged(() => PodatnikVat);
+                    return PodatnikVat;
                 }
                 else
                 {
@@ -532,7 +549,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if(item.DataAktualizacjiMf == null)
                 {
-                    return item.DataAktualizacjiMf = DateTime.Today;
+                    item.DataAktualizacjiMf = DateTime.Today;
+                    OnPropertyChanged(() => DataAktualizacjiMF);
+                    return item.DataAktualizacjiMf;
                 }
                 return item.DataAktualizacjiMf;
             }
@@ -551,7 +570,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.DataAktualizacjiVies == null)
                 {
-                    return item.DataAktualizacjiVies = DateTime.Today;
+                    item.DataAktualizacjiVies = DateTime.Today;
+                    OnPropertyChanged(() => DataAktualizacjiVIES);
+                    return item.DataAktualizacjiVies;
                 }
                 return item.DataAktualizacjiVies;
             }
@@ -595,12 +616,14 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Bazwa = null;
+                        OnPropertyChanged(() => Nazwa);
                         return;
                     }
                     if(value.Length <= 3)
                     {
                         MessageBox.Show("Zbyt krótka nazwa", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Bazwa = null;
+                        OnPropertyChanged(() => Nazwa);
                         return;
                     }
                     item.Bazwa = value;
@@ -622,12 +645,14 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędna ilośc znaków", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Nip = null;
+                        OnPropertyChanged(() => Nip);
                         return;
                     }
                     if (value.Contains(' '))
                     {
                         MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Nip = null;
+                        OnPropertyChanged(() => Nip);
                         return;
                     }
                     item.Nip = value;
@@ -649,12 +674,14 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędna ilośc znaków", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Pesel = null;
+                        OnPropertyChanged(() => Pesel);
                         return;
                     }
                     if (value.Contains(' '))
                     {
                         MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Pesel = null;
+                        OnPropertyChanged(() => Pesel);
                         return;
                     }
                     item.Pesel = value;
@@ -676,12 +703,14 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędna ilośc znaków", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Regon = null;
+                        OnPropertyChanged(() => Regon);
                         return;
                     }
                     if (value.Contains(' '))
                     {
                         MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Regon = null;
+                        OnPropertyChanged(() => Regon);
                         return;
                     }
                     item.Regon = value;
@@ -703,12 +732,14 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędna ilośc znaków", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Krs = null;
+                        OnPropertyChanged(() => Krs);
                         return;
                     }
                     if (value.Contains(' '))
                     {
                         MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.Krs = null;
+                        OnPropertyChanged(() => Krs);
                         return;
                     }
                     item.Krs = value;
@@ -730,12 +761,14 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędna ilośc znaków", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.GlnIln = null;
+                        OnPropertyChanged(() => GlnIln);
                         return;
                     }
                     if (value.Contains(' '))
                     {
                         MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.GlnIln = null;
+                        OnPropertyChanged(() => GlnIln);
                         return;
                     }
                     item.GlnIln = value;
@@ -757,18 +790,21 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędny znak początkowy", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.StronaWww = null;
+                        OnPropertyChanged(() => StronaWww);
                         return;
                     }
                     if (value.Contains(' '))
                     {
                         MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.StronaWww = null;
+                        OnPropertyChanged(() => StronaWww);
                         return;
                     }
                     if(!(value.Contains(".www"))) 
                     {
                         MessageBox.Show("Błędny adres strony", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.StronaWww = null;
+                        OnPropertyChanged(() => StronaWww);
                         return;
                     }
                     item.StronaWww = value;
@@ -1285,14 +1321,11 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 }
             }
         }
-        public IQueryable<Walutum> WalutaComboBoxItems
+        public IQueryable<KeyAndValue> WalutaComboBoxItems
         {
             get
             {
-                return(
-                    from w in firmaSpawalniczaEntities.Waluta
-                    select w
-                    ).ToList().AsQueryable();
+                return kontrahentB.GetWalutyKeyAndValueItems();
             }
         }
         #endregion

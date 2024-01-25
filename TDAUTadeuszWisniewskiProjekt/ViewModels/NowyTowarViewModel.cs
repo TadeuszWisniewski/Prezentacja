@@ -10,8 +10,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TDAUTadeuszWisniewskiProjekt.Helpers;
+using TDAUTadeuszWisniewskiProjekt.Models.BusinessLogic;
 using TDAUTadeuszWisniewskiProjekt.Models.Entities;
 using TDAUTadeuszWisniewskiProjekt.Models.EntitiesForView;
+using TDAUTadeuszWisniewskiProjekt.Models.Validatory;
 using TDAUTadeuszWisniewskiProjekt.ViewModels;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
@@ -110,7 +112,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (_ObliczCeneKoncowaCommand == null)
                 {
-                    _ObliczCeneKoncowaCommand = new BaseCommand(() => ObliczCenaKoncowa());
+                    _ObliczCeneKoncowaCommand = new BaseCommand(() => Oblicz());
                 }
                 return _ObliczCeneKoncowaCommand;
             }
@@ -121,7 +123,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             item = new Towar();
             _DataUtworzenia = DateTime.Today;
-
+            towarB = new TowarB(firmaSpawalniczaEntities);
 
             Messenger.Default.Register<TypForView>(this, getWybranyTyp);
             Messenger.Default.Register<RodzajVatForView>(this, getWybranyRodzajVat);
@@ -169,6 +171,11 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             IdCenaWyprzedazy = c.Id;
             WartoscCenaWyprzedazy = c.Wartosc;
         }
+        private void getWybranaCenaWyprzedazy()
+        {
+            IdCenaWyprzedazy = null;
+            WartoscCenaWyprzedazy = null;
+        }
         public int? Przypisz(int? idEan)
         {
             ObservableCollection<Eantyp> List = new ObservableCollection<Eantyp>
@@ -184,113 +191,119 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             }
             return null;
         }
-        private bool ObliczCenaKoncowa()
-        {
-            decimal? cenaKoncowa = 0;
-            if (DoWyprzedazy == false)
-            {
-                if (WartoscCenaRegularna != null)
-                {
-                    cenaKoncowa = cenaKoncowa + WartoscCenaRegularna;
-                }
-                else
-                {
-                    MessageBox.Show("Wybierz cenę regularną", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-            }
-            if (DoWyprzedazy == true)
-            {
-                if (WartoscCenaWyprzedazy != null)
-                {
-                    cenaKoncowa = cenaKoncowa + WartoscCenaWyprzedazy;
-                }
-                else
-                {
-                    MessageBox.Show("Wybierz cenę wyprzedaży", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-            }
-            if (IdRodzajVatSprzedazy != null  )
-            {
-                if (RodzajVatSprzedazy != null)
-                {
-                    cenaKoncowa = cenaKoncowa + (cenaKoncowa * (RodzajVatSprzedazy / 100));
-                }
-                else
-                {
-                    MessageBox.Show("Wybierz VAT dla sprzedaży", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Wybierz VAT dla sprzedaży", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            //Poniższe zacznie działać po zmianie typu danych w bazie na nvarchar(50)
-            if (Opakowanie == true)
-            {
-                if(KosztOpakowania != null && KosztOpakowania != 0)
-                {
-                    cenaKoncowa += KosztOpakowania;
-                }
-                else
-                {
-                    MessageBox.Show("Podaj koszt opakowania lub odznacz", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-            }
-            if (UslugaPodnoszacaWartoscMagazynowa == true)
-            {
-                if(WartoscUslugaPodnoszacaWartoscMagazynowa != null && WartoscUslugaPodnoszacaWartoscMagazynowa != 0)
-                {
-                    cenaKoncowa += WartoscUslugaPodnoszacaWartoscMagazynowa;
-                }
-                else
-                {
-                    MessageBox.Show("Podaj wartość podnoszącą wartość magazynową lub odznacz", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
+        //private bool ObliczCenaKoncowa()
+        //{
+        //    decimal? cenaKoncowa = 0;
+        //    if (DoWyprzedazy == false)
+        //    {
+        //        if (WartoscCenaRegularna != null)
+        //        {
+        //            cenaKoncowa = cenaKoncowa + WartoscCenaRegularna;
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Wybierz cenę regularną", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        //            return false;
+        //        }
+        //    }
+        //    if (DoWyprzedazy == true)
+        //    {
+        //        if (WartoscCenaWyprzedazy != null)
+        //        {
+        //            cenaKoncowa = cenaKoncowa + WartoscCenaWyprzedazy;
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Wybierz cenę wyprzedaży", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        //            return false;
+        //        }
+        //    }
+        //    if (IdRodzajVatSprzedazy != null  )
+        //    {
+        //        if (RodzajVatSprzedazy != null)
+        //        {
+        //            cenaKoncowa = cenaKoncowa + (cenaKoncowa * (RodzajVatSprzedazy / 100));
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Wybierz VAT dla sprzedaży", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Wybierz VAT dla sprzedaży", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        return false;
+        //    }
+        //    //Poniższe zacznie działać po zmianie typu danych w bazie na nvarchar(50)
+        //    if (Opakowanie == true)
+        //    {
+        //        if(KosztOpakowania != null && KosztOpakowania != 0)
+        //        {
+        //            cenaKoncowa += KosztOpakowania;
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Podaj koszt opakowania lub odznacz", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        //            return false;
+        //        }
+        //    }
+        //    if (UslugaPodnoszacaWartoscMagazynowa == true)
+        //    {
+        //        if(WartoscUslugaPodnoszacaWartoscMagazynowa != null && WartoscUslugaPodnoszacaWartoscMagazynowa != 0)
+        //        {
+        //            cenaKoncowa += WartoscUslugaPodnoszacaWartoscMagazynowa;
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Podaj wartość podnoszącą wartość magazynową lub odznacz", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        //            return false;
+        //        }
 
-            }
-            if (KosztDodatkowy == true)
-            {
-                if(WartoscKosztDodatkowy != null && WartoscKosztDodatkowy != 0)
-                {
-                    cenaKoncowa += WartoscKosztDodatkowy;
-                }
-                else
-                {
-                    MessageBox.Show("Podaj koszt dodatkowy lub odznacz", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-            }
+        //    }
+        //    if (KosztDodatkowy == true)
+        //    {
+        //        if(WartoscKosztDodatkowy != null && WartoscKosztDodatkowy != 0)
+        //        {
+        //            cenaKoncowa += WartoscKosztDodatkowy;
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Podaj koszt dodatkowy lub odznacz", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        //            return false;
+        //        }
+        //    }
             
-            if(cenaKoncowa != 0)
-            {
-                CenaKoncowa = cenaKoncowa;
-            }
-            return true;
+        //    if(cenaKoncowa != 0)
+        //    {
+        //        CenaKoncowa = cenaKoncowa;
+        //    }
+        //    return true;
+        //}
+        private void Oblicz()
+        {
+            CenaKoncowa = towarB.ObliczCenaKoncowa(DoWyprzedazy, WartoscCenaRegularna, WartoscCenaWyprzedazy, IdRodzajVatSprzedazy, RodzajVatSprzedazy, Opakowanie,
+            KosztOpakowania, UslugaPodnoszacaWartoscMagazynowa, WartoscUslugaPodnoszacaWartoscMagazynowa, KosztDodatkowy, WartoscKosztDodatkowy);
         }
-
         public override int Zakoncz()
         {           
-            if (Aktywny == false || Nazwa.IsNullOrEmpty() || PKWiU.IsNullOrEmpty() || NumerKatalogowy.IsNullOrEmpty() ||  KodKreskowy.IsNullOrEmpty() || IdTyp == null || IdCPV == null)
+            if (!(new WalidatorOgolny().WalidatorTowarZakoncz(Aktywny, Nazwa, PKWiU, NumerKatalogowy, KodKreskowy, IdTyp, IdCPV)))
             {
                 return 0;
             }
 
-            bool wynik = ObliczCenaKoncowa();
-            if (!wynik)
+            Oblicz();
+            decimal? wynik1 = CenaKoncowa;
+            //bool wynik = ObliczCenaKoncowa();
+            if (wynik1 == null)
             {
                 return 2;
             }
-
             return 1;
         }
         #endregion
         #region Pola
+        TowarB towarB;
         #region PierwszyWiersz
         private readonly DateTime? _DataUtworzenia;
         public DateTime? DataUtworzenia
@@ -300,6 +313,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.KiedyUtworzone != _DataUtworzenia)
                 {
                     item.KiedyUtworzone = _DataUtworzenia;
+                    OnPropertyChanged(() => DataUtworzenia);
                 }
                 
                 return item.KiedyUtworzone;
@@ -312,6 +326,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.KiedyZmieniono != DateTime.Today && item.KiedyUtworzone != DateTime.Today)
                 {
                     item.KiedyZmieniono = DateTime.Today;
+                    OnPropertyChanged(() => DataModyfikacji);
                 }
 
                 return item.KiedyZmieniono;
@@ -323,7 +338,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Aktywny == null)
                 {
-                    return item.Aktywny = true;
+                    item.Aktywny = true;
+                    OnPropertyChanged(() => Aktywny);
+                    return item.Aktywny;
                 }
                 else
                 {
@@ -456,15 +473,11 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             }
         }
         
-        public IQueryable<Eantyp> EANComboBoxItems
+        public IQueryable<KeyAndValue2> EANComboBoxItems
         {
             get
             {
-                return
-                    (
-                    from Eantyp in firmaSpawalniczaEntities.Eantyps
-                    select Eantyp
-                    ).ToList().AsQueryable();
+                return towarB.GetEANComboBoxItems;
             }
         }
         
@@ -482,6 +495,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędny kod kreskowy", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.KodKreskowy = null;
+                        OnPropertyChanged(() => KodKreskowy);
                         return;
                     }
                     item.KodKreskowy = value;
@@ -496,6 +510,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.Opakowanie == null)
                 {
                     item.Opakowanie = false;
+                    OnPropertyChanged(() => Opakowanie);
                     return item.Opakowanie;
                 }
                 else
@@ -527,6 +542,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     if (value == null)
                     {
                         KosztOpakowania = 0;
+                        OnPropertyChanged(() => KosztOpakowania);
                         return;
                     }
                     item.KosztOpakowania = value;
@@ -548,6 +564,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędny numer katalogowy", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.NumerKatalogowy = null;
+                        OnPropertyChanged(() => NumerKatalogowy);
                         return;
                     }
                     item.NumerKatalogowy = value;
@@ -663,6 +680,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędny numer PKWiU", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.PkwiU = null;
+                        OnPropertyChanged(() => PKWiU);
                         return;
                     }
                     item.PkwiU = value;
@@ -756,6 +774,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.DoWyprzedazy == null)
                 {
                     item.DoWyprzedazy = false;
+                    OnPropertyChanged(() => DoWyprzedazy);
                     return item.DoWyprzedazy;
                 }
                 else
@@ -770,6 +789,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     item.DoWyprzedazy = value;
                     IdCenaWyprzedazy = null;
                     WartoscCenaWyprzedazy = null;
+                    //getWybranaCenaWyprzedazy();
                     OnPropertyChanged(() => DoWyprzedazy);
                 }
             }
@@ -814,6 +834,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.Blokada == null)
                 {
                     item.Blokada = false;
+                    OnPropertyChanged(() => BlokadaSprzedazy);
                     return item.Blokada;
                 }
                 else
@@ -845,6 +866,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                     {
                         MessageBox.Show("Błędny powód blokady", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         item.PowodBlokady = null;
+                        OnPropertyChanged(() => PowodBlokady);
                         return;
                     }
                     item.PowodBlokady = value;
@@ -859,6 +881,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.UslugaPodnoszacaWartoscMagazynowa == null)
                 {
                     item.UslugaPodnoszacaWartoscMagazynowa = false;
+                    OnPropertyChanged(() => UslugaPodnoszacaWartoscMagazynowa);
                     return item.UslugaPodnoszacaWartoscMagazynowa;
                 }
                 else
@@ -898,6 +921,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if (item.DodatkowyKoszt == null)
                 {
                     item.DodatkowyKoszt = false;
+                    OnPropertyChanged(() => KosztDodatkowy);
                     return item.DodatkowyKoszt;
                 }
                 else

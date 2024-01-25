@@ -69,8 +69,17 @@ public partial class Kontrahent
 
     public bool? BlokadaSprzedazy { get; set; }
 
-    [Column(TypeName = "decimal(18, 0)")]
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? LacznaWartoscFaktur { get; set; }
+
+    [Column(TypeName = "decimal(18, 2)")]
     public decimal? LimitKredytu { get; set; }
+
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? SumaZaleglychNaleznosci { get; set; }
+
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? PozostalyLimit { get; set; }
 
     public int? Termin { get; set; }
 

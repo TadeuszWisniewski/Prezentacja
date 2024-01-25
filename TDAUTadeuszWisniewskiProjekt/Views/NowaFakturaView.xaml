@@ -52,7 +52,7 @@
                     <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True"  Text="{Binding DataUtworzenia, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Zmodyfikowano"  />
-                    <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True"  HorizontalAlignment="Stretch" Text="{Binding DataModyfikacji, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding DataModyfikacji, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
 
                     <Label Grid.Row="0" Grid.Column="5" Content="Aktywny" HorizontalContentAlignment="Right"/>
                     <CheckBox Grid.Row="0" Grid.Column="6" IsChecked="{Binding Path=Aktywny, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
@@ -170,10 +170,14 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Content="Oblicz" Command="{Binding ObliczCeneKoncowaCommand}"/>
                         <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Text="{Binding CenaPoRabacie, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                        <Label Grid.Column="2" HorizontalAlignment="Right" Content="Czy opłacona"  />
+                        <CheckBox Grid.Column="3" IsChecked="{Binding CzyZaplacone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </Grid>
                     
 

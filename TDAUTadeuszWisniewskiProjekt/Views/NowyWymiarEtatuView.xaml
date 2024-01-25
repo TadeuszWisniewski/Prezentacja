@@ -10,6 +10,7 @@
     <UserControl.Resources>
         <ResourceDictionary Source="StyleZakladekDictionary1.xaml"/>
     </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -37,14 +38,14 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Utworzono" HorizontalAlignment="Stretch" />
-                <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch"  Text="{Binding DataUtworzenia, Mode=OneWay}"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="Utworzono"/>
+                <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding DataUtworzenia, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="Zmodyfikowano" HorizontalAlignment="Stretch"/>
-                <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch"   />
+                <Label Grid.Row="1" Grid.Column="0" Content="Zmodyfikowano"/>
+                <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" />
 
                 <Label Grid.Row="0" Grid.Column="4" Content="Aktywny" HorizontalContentAlignment="Right"  />
-                <CheckBox Grid.Row="0" Grid.Column="5" IsChecked="{Binding Path=Aktywny}"/>
+                <CheckBox Grid.Row="0" Grid.Column="5" IsChecked="{Binding Path=Aktywny,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </Grid>
         </Border>
 
@@ -66,16 +67,16 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Nazwa"   HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Grid.Column="1"   HorizontalAlignment="Stretch"
-                Text="{Binding Path=Nazwa, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="0" Grid.Column="1"
+                    Text="{Binding Path=Nazwa, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Ilosc godzin"   HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="1" Grid.Column="1"   HorizontalAlignment="Stretch"
-                Text="{Binding Path=IloscGodzinTygodniowo, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" MaxLength="2"
+                    Text="{Binding Path=IloscGodzinTygodniowo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Opis"  HorizontalAlignment="Left"/>
                 <TextBox Grid.Row="2" Grid.Column="1"  
-             Text="{Binding Path=Opis, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="3" HorizontalAlignment="Stretch"/>
+                    Text="{Binding Path=Opis, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.ColumnSpan="3"/>
             </Grid>
         </Border>
     </Grid>

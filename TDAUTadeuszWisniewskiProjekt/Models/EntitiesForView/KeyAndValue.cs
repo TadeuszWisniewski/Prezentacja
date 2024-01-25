@@ -8,8 +8,7 @@ namespace TDAUTadeuszWisniewskiProjekt.Models.EntitiesForView
 {
     public class KeyAndValue
     {
-        //to jest klasa do przechowywania danych do combo boxa
-        public int Key { get; set; }
-        public int? Value { get; set; }
+        public int? Key { get; set; }
+        public string? Value { get; set; }
     }
 }

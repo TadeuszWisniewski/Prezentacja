@@ -59,7 +59,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             int wynik = Zakoncz();
             if(wynik == 0)
             {
-                MessageBox.Show("Wprowadź wszystkie wymagane dane", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Wprowadź wszystkie wymagane dane poprawenie", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (wynik == 2)

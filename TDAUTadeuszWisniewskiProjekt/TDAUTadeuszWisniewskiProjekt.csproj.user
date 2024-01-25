@@ -91,6 +91,15 @@
     <Compile Update="Views\NowyWymiarEtatuView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\RaportKontrahentowView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RaportSprzedazyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RaportWyplatView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\WszyscyKontrahenciView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -277,6 +286,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\NowyWymiarEtatuView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RaportKontrahentowView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RaportSprzedazyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RaportWyplatView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\StyleZakladekDictionary1.xaml">

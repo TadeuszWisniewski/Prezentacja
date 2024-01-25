@@ -25,9 +25,7 @@ namespace TDAUTadeuszWisniewskiProjekt.Views
         {
 
 
-            Regex regex = new Regex("[^0-9]+");//działa
-            //nie mam pojecia dlaczego to nie dziala:
-            //Regex regex = new Regex("[^0-9]+(\\.[0-9]+)?$");
+            Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
         public NowaCenaView()

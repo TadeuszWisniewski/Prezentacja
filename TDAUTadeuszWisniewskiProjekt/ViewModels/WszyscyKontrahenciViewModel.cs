@@ -6,13 +6,16 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TDAUTadeuszWisniewskiProjekt.Models.Context;
 using TDAUTadeuszWisniewskiProjekt.Models.Entities;
 using TDAUTadeuszWisniewskiProjekt.Models.EntitiesForView;
+
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
     public class WszyscyKontrahenciViewModel : WszystkieViewModel<KontrahentForView>
     {
+        
         #region Command
         private KontrahentForView _WybranyK;
         public KontrahentForView WybranyK
@@ -35,6 +38,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         public WszyscyKontrahenciViewModel() 
             :base("Kontrahenci")
         {
+
         }
 
 

@@ -1,23 +1,88 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TDAUTadeuszWisniewskiProjekt.Models.Entities;
+using TDAUTadeuszWisniewskiProjekt.Models.Validatory;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
     public class NowyTypUmowyOPraceViewModel : JedenViewModel<TypUmowyOprace> //wszystkie zakladni dziedzicza po WorkSpaceViewModel
     {
-        
+        #region Konstruktor
         public NowyTypUmowyOPraceViewModel()
             : base("Typ umowy o prace")
         {
             item = new TypUmowyOprace();
-            _DataUtworzenia = DateTime.Now;
+            _DataUtworzenia = DateTime.Today;
         }
-       
+        #endregion
+        #region Metody
+        public override int Zakoncz()
+        {
+            if (!(new JednostkaOrganizacyjnaValidator().SprawdzDane(Aktywny, Nazwa)))
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        #endregion
+        #region Pola
+        #region PierwszyWiersz
+        private readonly DateTime? _DataUtworzenia;
+        public DateTime? DataUtworzenia
+        {
+            get
+            {
+                if (item.KiedyUtworzone != _DataUtworzenia)
+                {
+                    item.KiedyUtworzone = _DataUtworzenia;
+                }
+
+                return item.KiedyUtworzone;
+            }
+        }
+        public DateTime? DataModyfikacji
+        {
+            get
+            {
+                if (item.KiedyZmieniono != DateTime.Today && item.KiedyUtworzone != DateTime.Today)
+                {
+                    item.KiedyZmieniono = DateTime.Today;
+                }
+                return item.KiedyZmieniono;
+            }
+        }
+        public bool? Aktywny
+        {
+            get
+            {
+                if (item.Aktywny == null)
+                {
+                    return item.Aktywny = true;
+                }
+                else
+                {
+                    return item.Aktywny;
+                }
+            }
+            set
+            {
+                if (item.Aktywny != value)
+                {
+                    item.Aktywny = value;
+                    OnPropertyChanged(() => Aktywny);
+                }
+            }
+        }
+        #endregion
+        #region DrugiWiersz
         public string? Nazwa
         {
             get
@@ -48,34 +113,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 }
             }
         }
-        //dopisać warunek zabetonowania
-        private readonly DateTime? _DataUtworzenia;
-        public DateTime? DataUtworzenia
-        {
-            get
-            {
-                if (item.KiedyUtworzone != _DataUtworzenia)
-                {
-                    item.KiedyUtworzone = _DataUtworzenia;
-                }
-                return item.KiedyUtworzone;
-            }
-        }
-
-        public bool? Aktywny
-        {
-            get
-            {
-                return item.Aktywny;
-            }
-            set
-            {
-                if (item.Aktywny != value)
-                {
-                    item.Aktywny = value;
-                    OnPropertyChanged(() => Aktywny);
-                }
-            }
-        }
+        #endregion
+        #endregion
     }
 }

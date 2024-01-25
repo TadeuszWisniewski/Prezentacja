@@ -3,19 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TDAUTadeuszWisniewskiProjekt.Models.BusinessLogic;
 using TDAUTadeuszWisniewskiProjekt.Models.Entities;
+using TDAUTadeuszWisniewskiProjekt.Models.EntitiesForView;
+using TDAUTadeuszWisniewskiProjekt.Models.Validatory;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
     public class NoweMiejsceUrodzeniaViewModel : JedenViewModel<MiejsceUrodzenium>
     {
-        public NoweMiejsceUrodzeniaViewModel() 
-            : base("Miejsce urodzenia")
+        #region Konstruktor
+        public NoweMiejsceUrodzeniaViewModel()
+           : base("Miejsce urodzenia")
         {
             item = new MiejsceUrodzenium();
-            _DataUtworzenia = DateTime.Now;
+            _DataUtworzenia = DateTime.Today;
         }
-        //dopisać warunek zabetonowania
+        #endregion
+        #region Metody
+        public override int Zakoncz()
+        {
+            if (!(new WalidatorOgolny().SprawdzDane3(Aktywny, MiejscowoscId)))
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        #endregion
+        #region Pola
+        #region PierwszyWiersz
         private readonly DateTime? _DataUtworzenia;
         public DateTime? DataUtworzenia
         {
@@ -25,40 +44,33 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 {
                     item.KiedyUtworzone = _DataUtworzenia;
                 }
+
                 return item.KiedyUtworzone;
             }
         }
-        public int? MiejscowoscId
+        public DateTime? DataModyfikacji
         {
             get
             {
-                return item.IdMiejscowosc;
-            }
-            set
-            {
-                if(item.IdMiejscowosc != value)
+                if (item.KiedyZmieniono != DateTime.Today && item.KiedyUtworzone != DateTime.Today)
                 {
-                    item.IdMiejscowosc = value;
-                    base.OnPropertyChanged(() => MiejscowoscId);
+                    item.KiedyZmieniono = DateTime.Today;
                 }
-            }
-        }
-        public IQueryable<Miejscowosc> MiejscowoscComboBoxItems
-        {
-            get
-            {
-                return
-                    (
-                    from Miejscowosc in firmaSpawalniczaEntities.Miejscowoscs
-                    select Miejscowosc
-                    ).ToList().AsQueryable();
+                return item.KiedyZmieniono;
             }
         }
         public bool? Aktywny
         {
             get
             {
-                return item.Aktywny;
+                if (item.Aktywny == null)
+                {
+                    return item.Aktywny = true;
+                }
+                else
+                {
+                    return item.Aktywny;
+                }
             }
             set
             {
@@ -69,6 +81,30 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 }
             }
         }
+        #endregion
+        #region DrugiWiersz
+        public int? MiejscowoscId
+        {
+            get
+            {
+                return item.IdMiejscowosc;
+            }
+            set
+            {
+                if (item.IdMiejscowosc != value)
+                {
+                    item.IdMiejscowosc = value;
+                    base.OnPropertyChanged(() => MiejscowoscId);
+                }
+            }
+        }
+        public IQueryable<KeyAndValue> MiejscowoscComboBoxItems
+        {
+            get
+            {
+                return new MiejsceUrodzeniaB(firmaSpawalniczaEntities).GetMiejscowosciKeyAndValueItems();
+            }
+        }
         public string? Opis
         {
             get
@@ -77,12 +113,14 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             }
             set
             {
-                if(item.Opis != value)
+                if (item.Opis != value)
                 {
                     item.Opis = value;
                     OnPropertyChanged(() => Opis);
                 }
             }
         }
+        #endregion
+        #endregion
     }
 }

@@ -10,8 +10,11 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Input.Manipulations;
 using TDAUTadeuszWisniewskiProjekt.Helpers;
+using TDAUTadeuszWisniewskiProjekt.Models.BusinessLogic;
+using TDAUTadeuszWisniewskiProjekt.Models.Context;
 using TDAUTadeuszWisniewskiProjekt.Models.Entities;
 using TDAUTadeuszWisniewskiProjekt.Models.EntitiesForView;
+using TDAUTadeuszWisniewskiProjekt.Models.Validatory;
 
 namespace TDAUTadeuszWisniewskiProjekt.ViewModels
 {
@@ -26,7 +29,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (_ShowAdresyZameldowaniaCommand == null)
                 {
-                    _ShowAdresyZameldowaniaCommand = new BaseCommand(() => Messenger.Default.Send("Adresy ZameldowaniaShow"));
+                    _ShowAdresyZameldowaniaCommand = new BaseCommand(() => Messenger.Default.Send("AdresyShow"));
                 }
                 return _ShowAdresyZameldowaniaCommand;
             }
@@ -103,18 +106,6 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 return _ShowWymiarEtatuCommand;
             }
         }
-        private BaseCommand _ShowTypStawkiCommand;
-        public ICommand ShowTypStawkiCommand
-        {
-            get
-            {
-                if (_ShowTypStawkiCommand == null)
-                {
-                    _ShowTypStawkiCommand = new BaseCommand(() => Messenger.Default.Send("Typy stawekShow"));
-                }
-                return _ShowTypStawkiCommand;
-            }
-        }
         private BaseCommand _ShowMiejscaUrodzeniaCommand;
         public ICommand ShowMiejscaUrodzeniaCommand
         {
@@ -134,10 +125,8 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             item = new Pracownik();
 
-            _DataUtworzenia = DateTime.Now;
-
-            //ten messanger oczekuje na przesłanie wybranego kontrahenta z okna wszyscy kontrahenci i po złapaniu tego kontrahenta uruchamia get wybrany kontrahent
-            //ten messanger oczekuje na przesłanie wybranego kontrahenta z okna wszyscy kontrahenci i po złapaniu tego kontrahenta uruchamia get wybrany kontrahent
+            _DataUtworzenia = DateTime.Today;
+           
             Messenger.Default.Register<AdresZameldowaniaForView>(this, getWybranyAdresZameldowania);
             Messenger.Default.Register<AdresDoKorespondencjiForView>(this, getWybranyAdresDoKorespondencji);
 
@@ -146,7 +135,6 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             Messenger.Default.Register<TypyUmowOPraceForView>(this, getWybranyTypUmowyOPrace);
             Messenger.Default.Register<StanowiskoForView>(this, getWybraneStanowisko);
             Messenger.Default.Register<WymiarEtatuForView>(this, getWybranyWymiarEtatu);
-            Messenger.Default.Register<TypStawkiForView>(this, getWybranyTypStawki);
             Messenger.Default.Register<MiejsceUrodzeniaForView>(this, getWybraneMiejsceUrodzenia);
         }
         #endregion
@@ -207,16 +195,26 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             IdWymiarEtatu=w.Id;
             NazwaWymiarEtatu=w.Nazwa;
-        }
-        private void getWybranyTypStawki(TypStawkiForView t)
-        {
-            IdTypStawki = t.Id;
-            NazwaTypStawki=t.Nazwa;
-        }
+        }   
         private void getWybraneMiejsceUrodzenia(MiejsceUrodzeniaForView m)
         {
             IdMiejsceUrodzenia = m.Id;
             NazwaMiejsceUrodzenia = m.NazwaMiejscowosci;
+        }
+        public override int Zakoncz()
+        {
+            if (!(new WalidatorOgolny().SprawdzPracownikaZakoncz(Aktywny, IdAdresZameldowania, IdAdresDoKorespondencji, AdresDoKorespondencjiInnyNizAdresZameldowania, IdJednostkaOrganizacyjna,
+            IdPodstawaZatrudnienia, IdTypUmowyOPrace, IdStanowisko, IdWymiarEtatu, Stawka, Nazwisko, Imie, DrugieImie,
+            NazwiskoRodowe, ImieMatki, NazwiskoRodoweMatki, ImieOjca, IdMiejsceUrodzenia, IdentyfikacjaPodatkowaOpcja1, IdentyfikacjaPodatkowaOpcja2,
+            Pesel, IdTypNIP, Nip)))
+            {
+                return 2;
+            }
+            else
+            {
+                Akronim = new PracownikB(firmaSpawalniczaEntities).StworzKod(Imie, Nazwisko);
+                return 1;
+            }
         }
         #endregion
         #region Pola
@@ -237,9 +235,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             get
             {
-                if (item.KiedyZmieniono != DateTime.Now)
+                if (item.KiedyZmieniono != DateTime.Today && item.KiedyUtworzone != DateTime.Today)
                 {
-                    item.KiedyZmieniono = DateTime.Now;
+                    item.KiedyZmieniono = DateTime.Today;
                 }
                 return item.KiedyZmieniono;
             }
@@ -250,7 +248,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Aktywny == null)
                 {
-                    return false;
+                    item.Aktywny = true;
+                    OnPropertyChanged(() => Aktywny);
+                    return item.Aktywny;
                 }
                 else
                 {
@@ -839,6 +839,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 if(item.DataZawarciaUmowy == null)
                 {
                     item.DataZawarciaUmowy = DateTime.Today;
+                    OnPropertyChanged(() => DataZawarciaUmowy);
                     return item.DataZawarciaUmowy;
                 }
                 else
@@ -886,37 +887,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 }
             }
         }
-        public int? IdTypStawki
-        {
-            get
-            {
-                return item.IdTypStawki;
-            }
-            set
-            {
-                if (item.IdTypStawki != value)
-                {
-                    item.IdTypStawki = value;
-                    OnPropertyChanged(() => IdTypStawki);
-                }
-            }
-        }
-        public string? _NazwaTypStawki;
-        public string? NazwaTypStawki
-        {
-            get
-            {
-                return _NazwaTypStawki;
-            }
-            set
-            {
-                if (_NazwaTypStawki != value)
-                {
-                    _NazwaTypStawki = value;
-                    OnPropertyChanged(() => NazwaTypStawki);
-                }
-            }
-        }
+        
         public decimal? Stawka
         {
             get
@@ -925,7 +896,14 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             }
             set
             {
-                if(item.Stawka != value)
+                if (!(new WalidatorOgolny().WalidatorStawki(value)))
+                {
+                    MessageBox.Show("Błędna stawka", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                    item.Stawka = null;
+                    OnPropertyChanged(() => Stawka);
+                    return;
+                }
+                if (item.Stawka != value)
                 {
                     item.Stawka = value;
                     OnPropertyChanged(() => Stawka);
@@ -942,6 +920,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             }
             set
             {
+                
                 if (item.Akronim != value)
                 {
                     item.Akronim = value;
@@ -959,6 +938,20 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Nazwisko != value)
                 {
+                    if (new WalidatorOgolny().WalidatorSpacji(value))
+                    {
+                        MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.Nazwisko = null;
+                        OnPropertyChanged(() => Nazwisko);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorDlugosci(value, 2))
+                    {
+                        MessageBox.Show("Zbyt krótkie nazwisko", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.Nazwisko = null;
+                        OnPropertyChanged(() => Nazwisko);
+                        return;
+                    }
                     item.Nazwisko = value;
                     OnPropertyChanged(() => Nazwisko);
                 }
@@ -974,6 +967,20 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Imie != value)
                 {
+                    if (new WalidatorOgolny().WalidatorSpacji(value))
+                    {
+                        MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.Imie = null;
+                        OnPropertyChanged(() => Imie);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorDlugosci(value, 2))
+                    {
+                        MessageBox.Show("Zbyt krótkie imie", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.Imie = null;
+                        OnPropertyChanged(() => Imie);
+                        return;
+                    }
                     item.Imie = value;
                     OnPropertyChanged(() => Imie);
                 }
@@ -989,6 +996,20 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.DrugieImie != value)
                 {
+                    if (new WalidatorOgolny().WalidatorSpacji(value))
+                    {
+                        MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.DrugieImie = null;
+                        OnPropertyChanged(() => DrugieImie);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorDlugosci(value, 2))
+                    {
+                        MessageBox.Show("Zbyt krótkie imie", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.DrugieImie = null;
+                        OnPropertyChanged(() => DrugieImie);
+                        return;
+                    }
                     item.DrugieImie = value;
                     OnPropertyChanged(() => DrugieImie);
                 }
@@ -1004,6 +1025,20 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.NazwiskoRodowe != value)
                 {
+                    if (new WalidatorOgolny().WalidatorSpacji(value))
+                    {
+                        MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.NazwiskoRodowe = null;
+                        OnPropertyChanged(() => NazwiskoRodowe);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorDlugosci(value, 2))
+                    {
+                        MessageBox.Show("Zbyt krótkie nazwisko", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.NazwiskoRodowe = null;
+                        OnPropertyChanged(() => NazwiskoRodowe);
+                        return;
+                    }
                     item.NazwiskoRodowe = value;
                     OnPropertyChanged(() => NazwiskoRodowe);
                 }
@@ -1019,6 +1054,20 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.ImieMatki != value)
                 {
+                    if (new WalidatorOgolny().WalidatorSpacji(value))
+                    {
+                        MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.ImieMatki = null;
+                        OnPropertyChanged(() => ImieMatki);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorDlugosci(value, 2))
+                    {
+                        MessageBox.Show("Zbyt krótkie imie", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.ImieMatki = null;
+                        OnPropertyChanged(() => ImieMatki);
+                        return;
+                    }
                     item.ImieMatki = value;
                     OnPropertyChanged(() => ImieMatki);
                 }
@@ -1034,6 +1083,20 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.NazwiskoRodoweMatki != value)
                 {
+                    if (new WalidatorOgolny().WalidatorSpacji(value))
+                    {
+                        MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.NazwiskoRodoweMatki = null;
+                        OnPropertyChanged(() => NazwiskoRodoweMatki);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorDlugosci(value, 2))
+                    {
+                        MessageBox.Show("Zbyt krótkie nazwisko", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.NazwiskoRodoweMatki = null;
+                        OnPropertyChanged(() => NazwiskoRodoweMatki);
+                        return;
+                    }
                     item.NazwiskoRodoweMatki = value;
                     OnPropertyChanged(() => NazwiskoRodoweMatki);
                 }
@@ -1043,6 +1106,12 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             get
             {
+                if(item.DataUrodzenia == null)
+                {
+                    item.DataUrodzenia = DateTime.Today;
+                    OnPropertyChanged(() => DataUrodzenia);
+                    return item.DataUrodzenia;       
+                }
                 return item.DataUrodzenia;
             }
             set
@@ -1064,6 +1133,20 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.ImieOjca != value)
                 {
+                    if (new WalidatorOgolny().WalidatorSpacji(value))
+                    {
+                        MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.ImieOjca = null;
+                        OnPropertyChanged(() => ImieOjca);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorDlugosci(value, 2))
+                    {
+                        MessageBox.Show("Zbyt krótkie imie", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.ImieOjca = null;
+                        OnPropertyChanged(() => ImieOjca);
+                        return;
+                    }
                     item.ImieOjca = value;
                     OnPropertyChanged(() => ImieOjca);
                 }
@@ -1105,10 +1188,6 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             get
             {
-                //if(_IdentyfikacjaPodatkowaOpcja1 == null)
-                //{
-                //    _IdentyfikacjaPodatkowaOpcja1 = true;
-                //}
                 return _IdentyfikacjaPodatkowaOpcja1;
             }
             set
@@ -1117,6 +1196,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 {
                     _IdentyfikacjaPodatkowaOpcja1 = value;
                     OnPropertyChanged(() => IdentyfikacjaPodatkowaOpcja1);
+                    Pesel = null;
+                    IdTypNIP = null;
+                    Nip = null;
                 }
             }
         }
@@ -1125,10 +1207,6 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         {
             get
             {
-                //if (_IdentyfikacjaPodatkowaOpcja2 == null)
-                //{
-                //    _IdentyfikacjaPodatkowaOpcja2 = false;
-                //}
                 return _IdentyfikacjaPodatkowaOpcja2;
             }
             set
@@ -1137,6 +1215,9 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 {
                     _IdentyfikacjaPodatkowaOpcja2 = value;
                     OnPropertyChanged(() => IdentyfikacjaPodatkowaOpcja2);
+                    Pesel = null;
+                    IdTypNIP = null;
+                    Nip = null;
                 }
             }
         }
@@ -1150,6 +1231,26 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Pesel != value)
                 {
+                    if (value == null)
+                    {
+                        item.Pesel = value;
+                        OnPropertyChanged(() => Pesel);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorSpacji2(value))
+                    {
+                        MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.Pesel = null;
+                        OnPropertyChanged(() => Pesel);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorDlugosci2(value, 11))
+                    {
+                        MessageBox.Show("Błędna długość", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.Pesel = null;
+                        OnPropertyChanged(() => Pesel);
+                        return;
+                    }
                     item.Pesel = value;
                     OnPropertyChanged(() => Pesel);
                 }
@@ -1168,18 +1269,15 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
                 {
                     item.IdTypNip = value;
                     OnPropertyChanged(() => IdTypNIP);
+                    Nip = null;
                 }
             }
         }
-        public IQueryable<TypNip> TypNipComboBoxItems
+        public IQueryable<KeyAndValue2> TypNipComboBoxItems
         {
             get
             {
-                return
-                    (
-                    from TypNip in firmaSpawalniczaEntities.TypNips
-                    select TypNip
-                    ).ToList().AsQueryable();
+                return new PracownikB(firmaSpawalniczaEntities).GetNipKeyAndValueItems();
             }
         }
         public string? Nip
@@ -1192,6 +1290,32 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             {
                 if (item.Nip != value)
                 {
+                    int? IloscCyfr = null;
+                    if (value != null)
+                    {
+                        TypNip typNIP = firmaSpawalniczaEntities.TypNips.FirstOrDefault(t => t.Id == IdTypNIP);
+                        IloscCyfr = typNIP.IloscCyfr;
+                    }
+                    if(value == null)
+                    {
+                        item.Nip = value;
+                        OnPropertyChanged(() => Nip);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorSpacji2(value))
+                    {
+                        MessageBox.Show("Użyto biały znak", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.Nip = null;
+                        OnPropertyChanged(() => Nip);
+                        return;
+                    }
+                    if (new WalidatorOgolny().WalidatorDlugosci2(value, IloscCyfr))
+                    {
+                        MessageBox.Show("Ilość znaków", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        item.Nip = null;
+                        OnPropertyChanged(() => Nip);
+                        return;
+                    }
                     item.Nip = value;
                     OnPropertyChanged(() => Nip);
                 }

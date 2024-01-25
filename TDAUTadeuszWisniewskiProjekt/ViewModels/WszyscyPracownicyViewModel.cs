@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -64,7 +65,6 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
             if (FindField == "Nazwisko")
                 List = new ObservableCollection<PracownikForView>(List.Where(item => item.Nazwisko != null && item.Nazwisko.StartsWith(FindTextBox)));
         }
-
 
         public override void load()
         {

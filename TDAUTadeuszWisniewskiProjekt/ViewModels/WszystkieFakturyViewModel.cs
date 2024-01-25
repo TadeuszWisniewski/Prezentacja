@@ -45,7 +45,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         public override void sort()
         {
-
+ 
             if (SortField == "Nazwa kontrahenta")
                 List = new ObservableCollection<FakturaForView>(List.OrderBy(item => item.NazwaKontrahenta));
             if (SortField == "Numer")
@@ -58,6 +58,7 @@ namespace TDAUTadeuszWisniewskiProjekt.ViewModels
         }
         public override void find()
         {
+            load();
             if (FindField == "Nazwa kontrahenta")
                 List = new ObservableCollection<FakturaForView>(List.Where(item => item.NazwaKontrahenta != null && item.NazwaKontrahenta.StartsWith(FindTextBox)));
             if (FindField == "Numer")
